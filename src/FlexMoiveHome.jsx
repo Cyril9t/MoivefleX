@@ -1,13 +1,31 @@
-import "./App.css"
+import "./App.css";
+import { populer, trendings } from "../src/api/tmbD.js";
+import { useState, useEffect } from "react";
+import { RotateLoader } from "react-spinners";
 export function Homepage() {
+    const [weeklyTrends, setweeklyTrends] = useState([]);
+    const [populerMovie, setPopulerMovie] = useState([]);
+
+
+    useEffect(() => {
+        trendings().then(data => setweeklyTrends(data.results));
+        console.log(weeklyTrends)
+    }, [])
+
+
+    useEffect(() => {
+        populer().then(data => setPopulerMovie(data.results));
+
+    }, [])
+
+
     return (
+
         <>
-            <link rel="stylesheet" href="Style.css" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-            <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-
             <div className="container">
-
+                {/* <div className="overLay">
+                    <RotateLoader size={50} color="white" />
+                </div> */}
                 <header className="navbar">
                     <div className="logo">
                         <i className="fas fa-film"></i>
@@ -24,34 +42,82 @@ export function Homepage() {
 
 
                 <main>
-                    <h2 className="section-title">Recommended for you</h2>
-                    <div className="movie-grid">
-                        <div className="movie-card">
-                            <div className="movie-poster">Poster</div>
-                            <div className="movie-info">
-                                <h3 className="movie-title">Dune: Part Two</h3>
-                                <span className="movie-year">2024</span>
-                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
-                            </div>
-                        </div>
 
-                        <div className="movie-card">
-                            <div className="movie-poster" >Poster</div>
-                            <div className="movie-info">
-                                <h3 className="movie-title">Poor Things</h3>
-                                <span className="movie-year">2023</span>
-                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
-                            </div>
-                        </div>
+                    <h2 className="section-title">Recommended for you</h2>
+
+
+                    <div className="seeAll">
+                        <h1 className="category">🔥Weekly Trends</h1>
+                        <h3 className="seeButton">See All</h3>
                     </div>
+
+
+                    <div className="movie-flex">
+
+                        {weeklyTrends.map((movie) => {
+                            return (
+                                <div className="movie-card" key={movie.id}>
+                                    <div className="movie-poster" ><img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                    <div className="movie-info">
+                                        <h3 className="movie-title">{movie.title}</h3>
+                                        <span className="movie-year">{movie.release_date}</span>
+                                        <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                    </div>
+                                </div>
+
+                            )
+
+                        })}
+                    </div>
+
+                    <div className="seeAll">
+                        <h1 className="category">🚀Populer</h1>
+                        <h3 className="seeButton">See All</h3>
+                    </div>
+                    <div className="movie-flex">
+
+                        {populerMovie.map((movie) => {
+                            return (
+
+                                <div className="movie-card" key={movie.id}>
+                                    <div className="movie-poster" ><img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                    <div className="movie-info">
+                                        <h3 className="movie-title">{movie.title}</h3>
+                                        <span className="movie-year">{movie.release_date}</span>
+                                        <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+
+                    <div className="movie-flex">
+
+                        {populerMovie.map((movie) => {
+                            return (
+
+                                <div className="movie-card" key={movie.id}>
+                                    <div className="movie-poster" ><img src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                    <div className="movie-info">
+                                        <h3 className="movie-title">{movie.title}</h3>
+                                        <span className="movie-year">{movie.release_date}</span>
+                                        <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                    </div>
+                                </div>
+                            )
+                        })}
+
+
+
+                    </div>
+
                 </main>
-            </div >
+            </div>
 
 
             <footer className="footer">
-                <p>© 2025 MOVIEFLEX · just UI</p>
+                <p>© 2025 MOVIEFLEX</p>
             </footer>
-
 
         </>
     )
