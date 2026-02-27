@@ -19,7 +19,7 @@ body {
 }
 
 .overLay {
-    background-color: rgb(0, 0, 0);
+    /* background-color: rgb(0, 0, 0); */
     backdrop-filter: blur(2px);
     position: absolute;
     top: 0;
@@ -33,6 +33,11 @@ body {
     display: flex;
 }
 
+.results {
+    display: flex;
+    flex-direction: row;
+}
+
 /* -------------------- TYPOGRAPHY -------------------- */
 h2.section-title {
     font-weight: 600;
@@ -42,6 +47,7 @@ h2.section-title {
     color: #ffffff;
     border-left: 4px solid #e50914;
     padding-left: 1rem;
+
 
 }
 
@@ -86,7 +92,7 @@ h2.section-title {
     padding: 0.5rem 1.2rem;
     border: 1px solid #333;
     transition: border 0.2s, box-shadow 0.2s;
-    max-width: 550px;
+    width: 100%;
 }
 
 .search-wrapper:focus-within {
@@ -112,7 +118,7 @@ h2.section-title {
 }
 
 .search-bar::placeholder {
-    color: #666;
+    color: #8e8e8e;
     font-weight: 300;
 }
 
@@ -131,25 +137,90 @@ h2.section-title {
 
 .category {
     flex-grow: 1;
+    cursor: default;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .seeAll {
     display: flex;
     flex-direction: row;
+    background-color: #3d3b3b35;
+    margin: 18px;
+    padding-right: 7px;
+    border-radius: 12px;
+    width: 90%;
+    margin-left: auto;
+    margin-left: auto;
+    border: 1px solid white;
 
 }
 
 .seeButton {
     font-style: italic;
+    padding-right: 15px;
+    margin-top: 10px;
+    color: #8e8c8c;
+    cursor: pointer;
 }
 
+
+
+.resultsPosition {
+
+    width: 93%;
+    background-color: #0a0a0a;
+
+}
+
+.resultbar {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.exitIcon {
+    border: 3px solid rgb(75, 71, 71);
+    border-radius: 30px;
+    position: fixed;
+    top: 5em;
+    margin-top: 3em;
+    margin-right: -30px;
+}
+
+.whileResult {
+    margin-bottom: 20px;
+}
+
+.forResult {
+    border-bottom: 1px solid rgb(85, 78, 78);
+    margin-bottom: 29px;
+    flex-grow: 1;
+}
+
+
+.buttonsWrap {
+    background: none;
+    border: none;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.exit {
+    background: white;
+    color: rgb(0, 0, 0);
+    border: none;
+    font-size: 3rem;
+    border-radius: 30px;
+
+}
 
 
 /* -------------------- MOVIE GRID -------------------- */
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem 4rem;
     margin-top: 1rem;
 
 }
@@ -164,7 +235,44 @@ h2.section-title {
 
 }
 
+.buttonsWrap {
+    background: none;
+    border: none;
+
+    justify-content: center;
+    text-align: center;
+}
+
 /* movie card */
+
+.movie-cardGrid {
+    background-color: #141414;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.8);
+    border: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+
+.movie-posterGrid {
+    /* height: 260px; */
+    /* background-color: #2c2c2c; */
+    align-items: center;
+    justify-content: center;
+    /* color: #777; */
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    /* border-bottom: 1px solid #2a2a2a; */
+    /* background-image: linear-gradient(145deg, #222, #2e2e2e); */
+}
+
+
 
 
 .movie-card {
@@ -230,14 +338,26 @@ h2.section-title {
 
 .movie-year {
     font-size: 0.85rem;
-    color: #aaa;
-    background: #2a2a2a;
+    color: #d0d0d0;
+    background: #000000;
     padding: 0.2rem 0.6rem;
-    border-radius: 30px;
+    border-radius: 7px;
+    border: 1px solid rgb(117, 19, 19);
     font-weight: 500;
     margin-right: auto;
     margin-left: 0.5rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 12px;
 }
+
+.movie-titleGrid {
+    color: rgb(255, 255, 255);
+    /* border: 1px solid rgb(3, 128, 3); */
+    border-radius: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5em;
+}
+
 
 .favorite-btn {
     background: transparent;
