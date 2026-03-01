@@ -3,9 +3,13 @@ import { embededVideos } from "./api/tmbD";
 import { PlayTrailer } from "./MoviePlayer";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { moviCast } from "./api/tmbD";
 function App() {
   const [overviews, setOverviews] = useState("")
   const [movieKeys, setMovieKeys] = useState([])
+  const [casts, setCasts] = useState([])
+  const [crew, setCrew] = useState([])
+  const [directors, setDirectors] = useState([]);
 
   const tryVids = (movieId) => {
     embededVideos(movieId).then(data => {
@@ -14,17 +18,32 @@ function App() {
         setMovieKeys(trailers.key);
       }
     })
+
+  }
+
+  const casting = (idforCast) => {
+    moviCast(idforCast).then(data => {
+      setDirectors(data.crew)
+      setCasts(data.cast)
+      setCrew(data.crew)
+
+
+
+
+    })
+
+
   }
 
   return (
     <Routes>
       <Route
         path="/"
-        element={<Homepage tryVids={tryVids} setOverviews={setOverviews} />}
+        element={<Homepage casting={casting} tryVids={tryVids} setOverviews={setOverviews} />}
       />
       <Route
         path="player"
-        element={<PlayTrailer movieKeys={movieKeys} overviews={overviews} />}
+        element={<PlayTrailer directors={directors} movieKeys={movieKeys} overviews={overviews} casts={casts} crew={crew} />}
       />
 
     </Routes>

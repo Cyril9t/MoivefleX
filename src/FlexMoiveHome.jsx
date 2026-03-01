@@ -2,8 +2,8 @@ import "./App.css";
 import { populer, searchButton, topRated, trendings, upComings, embededVideos } from "../src/api/tmbD.js";
 import { useState, useEffect } from "react";
 import { RotateLoader } from "react-spinners";
-import { Link } from "react-router-dom";
-export function Homepage({ tryVids, setOverviews }) {
+import { data, Link } from "react-router-dom";
+export function Homepage({ tryVids, setOverviews, casting }) {
     const [weeklyTrends, setweeklyTrends] = useState([]);
     const [populerMovie, setPopulerMovie] = useState([]);
     const [ratedMovie, setRatedMovie] = useState([]);
@@ -13,10 +13,10 @@ export function Homepage({ tryVids, setOverviews }) {
     const [cards, setCards] = useState("movie-card");
     const [infos, setInfos] = useState("movie-poster");
     const [movieTitle, setMovieTitle] = useState("movie-title");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(null);
     const [movieSearch, setMovieSearch] = useState("");
     const [searchedMovie, setSearchedMovie] = useState([])
-
+    const [lnum, setLnum] = useState("50px");
 
     useEffect(() => {
         trendings().then(data => setweeklyTrends(data.results));
@@ -27,19 +27,17 @@ export function Homepage({ tryVids, setOverviews }) {
 
     const handleSearch = () => {
         searchButton(movieSearch).then(data => setSearchedMovie(data.results));
-
     }
 
     useEffect(() => {
-        if (!weeklyTrends) {
+        if (weeklyTrends.length <= 0) {
+            setLoading(true)
+
+        } else if (weeklyTrends.length >= 1) {
+            // console.log("fetdhhd", weeklyTrends)
             setLoading(false)
-        } else {
-            setLoading(true);
         }
     }, [weeklyTrends])
-
-
-
 
     const showGrid = () => {
         const condition = gridHandle ? "movie-grid" : "movie-flex";
@@ -51,18 +49,11 @@ export function Homepage({ tryVids, setOverviews }) {
         setInfos(infoCondition);
         setMovieTitle(tilte);
     }
-
-
-
-
-
     return (
 
         <>
             <div className="container">
-                {/* <div className="overLay">
-                    <RotateLoader size={50} color="white" />
-                </div> */}
+
                 <header className="navbar">
                     <div className="logo">
                         <i className="fas fa-film"></i>
@@ -118,8 +109,6 @@ export function Homepage({ tryVids, setOverviews }) {
                         </div> </>}
 
                     <h2 className="section-title">Recommended for you</h2>
-
-
                     <div className="seeAll">
                         <h1 className="category">🔥Weekly Trends</h1>
                         <h3 className="seeButton"
@@ -129,38 +118,30 @@ export function Homepage({ tryVids, setOverviews }) {
                             }}
                         >See All</h3>
                     </div>
-
-
-                    {!loading ?
+                    {loading ? <div className="overLay"><RotateLoader size={lnum} color="red" /></div>
+                        :
                         <div className={populerG}>
-
-
                             {
                                 weeklyTrends.map((movie) => {
                                     return (
                                         <div className={cards} key={movie.id} onClick={() => {
                                             tryVids(movie.id);
                                             setOverviews(movie);
-
+                                            casting(movie.id);
                                         }}>
-                                            <Link to="player">                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                            <Link to="player">
+                                                <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
                                                 <div className="movie-info">
                                                     <h3 className={movieTitle}>{movie.title}</h3>
                                                     <span className="movie-year">{movie.release_date}</span>
                                                     <button className="favorite-btn"><i className="far fa-heart"></i></button>
                                                 </div>
                                             </Link>
-
                                         </div>
-
                                     )
-
                                 })
                             }
-
-                        </div> : <div className="overLay"><RotateLoader size={50} color="white" /></div>}
-
-
+                        </div>}
 
                     <div className="seeAll">
                         <h1 className="category">🚀Populer</h1>
@@ -169,32 +150,30 @@ export function Homepage({ tryVids, setOverviews }) {
                                 showGrid();
                                 setGridHandle((prev) => !prev)
                             }}
-
                         >See All</h3>
                     </div>
-                    <div className={populerG}>
-
-                        {populerMovie.map((movie) => {
-                            return (
-                                <Link to="player">
-
+                    {!loading ?
+                        <div className={populerG}>
+                            {populerMovie.map((movie) => {
+                                return (
                                     <div className={cards} key={movie.id} onClick={() => {
                                         tryVids(movie.id);
                                         setOverviews(movie);
+                                        casting(movie.id);
                                     }}>
-                                        <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
-                                        <div className="movie-info">
-                                            <h3 className={movieTitle}>{movie.title}</h3>
-                                            <span className="movie-year">{movie.release_date}</span>
-                                            <button className="favorite-btn"><i className="far fa-heart"></i></button>
-                                        </div>
 
-
+                                        <Link to="player">
+                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                            <div className="movie-info">
+                                                <h3 className={movieTitle}>{movie.title}</h3>
+                                                <span className="movie-year">{movie.release_date}</span>
+                                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                            </div>
+                                        </Link>
                                     </div>
-                                </Link>
-                            )
-                        })}
-                    </div>
+                                )
+                            })}
+                        </div> : <div className="overLay"><RotateLoader size={50} color="red" /></div>}
 
                     <div className="seeAll">
                         <h1 className="category">⭐Top Rated</h1>
@@ -203,33 +182,29 @@ export function Homepage({ tryVids, setOverviews }) {
                             setGridHandle((prev) => !prev)
                         }}>See All</h3>
                     </div>
+                    {!loading ?
+                        <div className={populerG}>
 
-                    <div className={populerG}>
-
-                        {ratedMovie.map((movie) => {
-                            return (
-                                <Link to="player">
-
+                            {ratedMovie.map((movie) => {
+                                return (
                                     <div className={cards} key={movie.id} onClick={() => {
                                         tryVids(movie.id);
                                         setOverviews(movie);
+                                        casting(movie.id);
                                     }}>
-                                        <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
-                                        <div className="movie-info">
-                                            <h3 className={movieTitle}>{movie.title}</h3>
-                                            <span className="movie-year">{movie.release_date}</span>
-                                            <span className="movie-year">{Math.round(movie.vote_average)}⭐ <small>{`(${movie.vote_average}/10)`}</small> <small><i>{`${movie.vote_count} vote`}</i></small></span>
-                                            <button className="favorite-btn"><i className="far fa-heart"></i></button>
-                                        </div>
+                                        <Link to="player">
+                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                            <div className="movie-info">
+                                                <h3 className={movieTitle}>{movie.title}</h3>
+                                                <span className="movie-year">{movie.release_date}</span>
+                                                <span className="movie-year">{Math.round(movie.vote_average)}⭐ <small>{`(${movie.vote_average}/10)`}</small> <small><i>{`${movie.vote_count} vote`}</i></small></span>
+                                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                            </div>
+                                        </Link>
                                     </div>
-                                </Link>
-                            )
-                        })}
-
-
-
-                    </div>
-
+                                )
+                            })}
+                        </div> : <div className="overLay"><RotateLoader size={50} color="red" /></div>}
                     <div className="seeAll">
                         <h1 className="category">⬆️ Up Next</h1>
                         <h3 className="seeButton" onClick={() => {
@@ -237,34 +212,31 @@ export function Homepage({ tryVids, setOverviews }) {
                             setGridHandle((prev) => !prev)
                         }}>See All</h3>
                     </div>
-
                     <div className="movie-flex">
                         {upComingMovies.map((movie) => {
                             return (
                                 <div className={cards} key={movie.id} onClick={() => {
                                     tryVids(movie.id);
                                     setOverviews(movie);
+                                    casting(movie.id);
                                 }}>
-                                    <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
-                                    <div className="movie-info">
-                                        <h3 className={movieTitle}>{movie.title}</h3>
-                                        <span className="movie-year">{movie.release_date}</span>
-                                        <button className="favorite-btn"><i className="far fa-heart"></i></button>
-                                    </div>
+                                    <Link to="player">
+                                        <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                        <div className="movie-info">
+                                            <h3 className={movieTitle}>{movie.title}</h3>
+                                            <span className="movie-year">{movie.release_date}</span>
+                                            <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                        </div>
+                                    </Link>
                                 </div>
                             )
                         })}
-
                     </div>
-
                 </main>
             </div>
-
-
             <footer className="footer">
                 <p>© 2025 MOVIEFLEX</p>
             </footer>
-
         </>
     )
 

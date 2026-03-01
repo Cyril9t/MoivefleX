@@ -24,13 +24,34 @@ body {
     align-items: center;
     text-align: center;
     display: flex;
+    flex-direction: column;
     height: 10em;
-    background-color: #62555594;
     border-radius: 15px;
+    background: rgba(79, 95, 115, 0.53);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.4px);
+    -webkit-backdrop-filter: blur(8.4px);
+    border: 1px solid rgba(79, 95, 115, 0.13);
     width: 90%;
     margin-left: auto;
     margin-left: auto;
 
+
+}
+
+.overLay::after {
+    content: "Loading...";
+    margin: 15px;
+    font-family: monospace;
+    font-size: 16px;
+
+}
+
+.loder {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
 
 }
 
@@ -139,7 +160,7 @@ h2.section-title {
 .category {
     flex-grow: 1;
     cursor: default;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: cursive;
 }
 
 .seeAll {
@@ -290,8 +311,9 @@ a {
 
 .movie-card:hover {
     transform: translateY(-6px);
-    border-color: #e50914;
-    box-shadow: 0 18px 30px -8px rgba(229, 9, 20, 0.3);
+    border-color: #ea0f0f;
+    box-shadow: 0 18px 30px -8px rgb(134, 9, 9);
+
 }
 
 .movie-poster {

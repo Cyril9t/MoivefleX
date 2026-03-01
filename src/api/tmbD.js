@@ -36,3 +36,10 @@ export const embededVideos = async (movieId) => {
 
 }
 
+
+export const moviCast = async (idforCast) => {
+    const resp = await fetch(`${baseUrl}/movie/${idforCast}/credits?api_key=${apiKey}`);
+
+    return resp.json();
+
+}
