@@ -1,8 +1,9 @@
 import "./App.css";
-import { populer, searchButton, topRated, trendings, upComings } from "../src/api/tmbD.js";
+import { populer, searchButton, topRated, trendings, upComings, embededVideos } from "../src/api/tmbD.js";
 import { useState, useEffect } from "react";
 import { RotateLoader } from "react-spinners";
-export function Homepage() {
+import { Link } from "react-router-dom";
+export function Homepage({ tryVids, setOverviews }) {
     const [weeklyTrends, setweeklyTrends] = useState([]);
     const [populerMovie, setPopulerMovie] = useState([]);
     const [ratedMovie, setRatedMovie] = useState([]);
@@ -15,6 +16,8 @@ export function Homepage() {
     const [loading, setLoading] = useState(false);
     const [movieSearch, setMovieSearch] = useState("");
     const [searchedMovie, setSearchedMovie] = useState([])
+
+
     useEffect(() => {
         trendings().then(data => setweeklyTrends(data.results));
         populer().then(data => setPopulerMovie(data.results));
@@ -22,11 +25,10 @@ export function Homepage() {
         upComings().then(data => setUpComingMovies(data.results));
     }, [])
 
-
     const handleSearch = () => {
         searchButton(movieSearch).then(data => setSearchedMovie(data.results));
-    }
 
+    }
 
     useEffect(() => {
         if (!weeklyTrends) {
@@ -51,12 +53,6 @@ export function Homepage() {
     }
 
 
-    const embedFunction = (movieId) async => {
-        try {
-            const resp = await fetch()
-        }
-
-    }
 
 
 
@@ -74,7 +70,6 @@ export function Homepage() {
                         <span>MOVIEFLEX</span>
                     </div>
                     <div className="search-wrapper">
-                        {/* <i className="fas fa-search search-icon"></i> */}
                         <input type="text"
                             className="search-bar"
                             placeholder="Search movies..."
@@ -136,26 +131,36 @@ export function Homepage() {
                     </div>
 
 
-                    {loading ?
+                    {!loading ?
                         <div className={populerG}>
+
 
                             {
                                 weeklyTrends.map((movie) => {
                                     return (
-                                        <div className={cards} key={movie.id}>
-                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
-                                            <div className="movie-info">
-                                                <h3 className={movieTitle}>{movie.title}</h3>
-                                                <span className="movie-year">{movie.release_date}</span>
-                                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
-                                            </div>
+                                        <div className={cards} key={movie.id} onClick={() => {
+                                            tryVids(movie.id);
+                                            setOverviews(movie);
+
+                                        }}>
+                                            <Link to="player">                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                                <div className="movie-info">
+                                                    <h3 className={movieTitle}>{movie.title}</h3>
+                                                    <span className="movie-year">{movie.release_date}</span>
+                                                    <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                                </div>
+                                            </Link>
+
                                         </div>
 
                                     )
 
                                 })
                             }
-                        </div> : <RotateLoader size={50} color="white" />}
+
+                        </div> : <div className="overLay"><RotateLoader size={50} color="white" /></div>}
+
+
 
                     <div className="seeAll">
                         <h1 className="category">🚀Populer</h1>
@@ -171,15 +176,22 @@ export function Homepage() {
 
                         {populerMovie.map((movie) => {
                             return (
+                                <Link to="player">
 
-                                <div className={cards} key={movie.id}>
-                                    <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
-                                    <div className="movie-info">
-                                        <h3 className={movieTitle}>{movie.title}</h3>
-                                        <span className="movie-year">{movie.release_date}</span>
-                                        <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                    <div className={cards} key={movie.id} onClick={() => {
+                                        tryVids(movie.id);
+                                        setOverviews(movie);
+                                    }}>
+                                        <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                        <div className="movie-info">
+                                            <h3 className={movieTitle}>{movie.title}</h3>
+                                            <span className="movie-year">{movie.release_date}</span>
+                                            <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                        </div>
+
+
                                     </div>
-                                </div>
+                                </Link>
                             )
                         })}
                     </div>
@@ -196,16 +208,21 @@ export function Homepage() {
 
                         {ratedMovie.map((movie) => {
                             return (
+                                <Link to="player">
 
-                                <div className={cards} key={movie.id}>
-                                    <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
-                                    <div className="movie-info">
-                                        <h3 className={movieTitle}>{movie.title}</h3>
-                                        <span className="movie-year">{movie.release_date}</span>
-                                        <span className="movie-year">{Math.round(movie.vote_average)}⭐ <small>{`(${movie.vote_average}/10)`}</small> <small><i>{`${movie.vote_count} vote`}</i></small></span>
-                                        <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                    <div className={cards} key={movie.id} onClick={() => {
+                                        tryVids(movie.id);
+                                        setOverviews(movie);
+                                    }}>
+                                        <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                        <div className="movie-info">
+                                            <h3 className={movieTitle}>{movie.title}</h3>
+                                            <span className="movie-year">{movie.release_date}</span>
+                                            <span className="movie-year">{Math.round(movie.vote_average)}⭐ <small>{`(${movie.vote_average}/10)`}</small> <small><i>{`${movie.vote_count} vote`}</i></small></span>
+                                            <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             )
                         })}
 
@@ -224,12 +241,14 @@ export function Homepage() {
                     <div className="movie-flex">
                         {upComingMovies.map((movie) => {
                             return (
-                                <div className={cards} key={movie.id}>
+                                <div className={cards} key={movie.id} onClick={() => {
+                                    tryVids(movie.id);
+                                    setOverviews(movie);
+                                }}>
                                     <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
                                     <div className="movie-info">
                                         <h3 className={movieTitle}>{movie.title}</h3>
                                         <span className="movie-year">{movie.release_date}</span>
-                                        {/* <span className="movie-year">{Math.round(movie.vote_average)}⭐ <small>{`(${movie.vote_average}/10)`}</small> <small><i>{`${movie.vote_count} vote`}</i></small></span> */}
                                         <button className="favorite-btn"><i className="far fa-heart"></i></button>
                                     </div>
                                 </div>

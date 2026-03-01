@@ -1,0 +1,284 @@
+.movie-detail {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem 0 2rem;
+}
+
+/* ---------- Video Container (16:9 responsive) ---------- */
+.video-section {
+    margin-bottom: 2.5rem;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.8);
+    border: 1px solid #2a2a2a;
+    transition: border 0.2s;
+}
+
+.video-section:hover {
+    border-color: #e50914;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ---------- Movie Header ---------- */
+.movie-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #252525;
+    padding-bottom: 1.5rem;
+}
+
+.movie-main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.movie-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    color: #aaa;
+    font-size: 1rem;
+    align-items: center;
+}
+
+.movie-meta span {
+    background: #1f1f1f;
+    padding: 0.3rem 1rem;
+    border-radius: 40px;
+    border: 1px solid #333;
+    font-weight: 500;
+}
+
+.rating-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 0.5rem;
+}
+
+.rating-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: #f5b50a;
+    font-size: 1.3rem;
+}
+
+.rating-stars .rating-value {
+    margin-left: 0.5rem;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.vote-count {
+    color: #bbb;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.vote-count i {
+    color: #e50914;
+}
+
+/* ---------- Overview ---------- */
+.overview {
+    margin-bottom: 2.5rem;
+}
+
+.overview h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #fff;
+    border-left: 4px solid #e50914;
+    padding-left: 1rem;
+}
+
+.overview p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #ccc;
+    max-width: 800px;
+}
+
+/* ---------- Cast Section ---------- */
+.cast-section {
+    margin-bottom: 2.5rem;
+}
+
+.cast-section h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    border-left: 4px solid #e50914;
+    padding-left: 1rem;
+}
+
+.cast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+}
+
+.cast-card {
+    background-color: #141414;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #2a2a2a;
+    transition: all 0.2s;
+    box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.6);
+}
+
+.cast-card:hover {
+    transform: translateY(-4px);
+    border-color: #e50914;
+    box-shadow: 0 14px 24px -8px rgba(229, 9, 20, 0.3);
+}
+
+.cast-photo {
+    height: 180px;
+    background-color: #2c2c2c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    background-image: linear-gradient(145deg, #222, #2e2e2e);
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.cast-info {
+    padding: 1rem 0.8rem 0.8rem;
+}
+
+.cast-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cast-info p {
+    font-size: 0.85rem;
+    color: #aaa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ---------- Crew Section (director, writers) ---------- */
+.crew-section {
+    background: #141414;
+    border-radius: 24px;
+    padding: 1.5rem 2rem;
+    border: 1px solid #2a2a2a;
+    margin-top: 1rem;
+}
+
+.crew-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #2a2a2a;
+}
+
+.crew-item:last-child {
+    border-bottom: none;
+}
+
+.crew-label {
+    font-weight: 600;
+    color: #e50914;
+    min-width: 90px;
+}
+
+.crew-value {
+    color: #ddd;
+}
+
+/* ---------- Responsive adjustments ---------- */
+@media (max-width: 700px) {
+    .movie-main-title {
+        font-size: 1.9rem;
+    }
+
+    .movie-meta {
+        gap: 0.7rem;
+    }
+
+    .movie-meta span {
+        padding: 0.2rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .rating-block {
+        gap: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cast-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem;
+    }
+
+    .cast-photo {
+        height: 150px;
+    }
+
+    .crew-section {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-main-title {
+        font-size: 1.6rem;
+    }
+
+    .movie-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .cast-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cast-photo {
+        height: 130px;
+    }
+}

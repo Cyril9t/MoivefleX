@@ -1,4 +1,3 @@
-/* -------------------- RESET & BASE -------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -19,18 +18,20 @@ body {
 }
 
 .overLay {
-    /* background-color: rgb(0, 0, 0); */
     backdrop-filter: blur(2px);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
+
     justify-content: center;
     align-items: center;
     text-align: center;
     display: flex;
+    height: 10em;
+    background-color: #62555594;
+    border-radius: 15px;
+    width: 90%;
+    margin-left: auto;
+    margin-left: auto;
+
+
 }
 
 .results {
@@ -38,7 +39,7 @@ body {
     flex-direction: row;
 }
 
-/* -------------------- TYPOGRAPHY -------------------- */
+
 h2.section-title {
     font-weight: 600;
     font-size: 1.75rem;
@@ -51,7 +52,7 @@ h2.section-title {
 
 }
 
-/* -------------------- HEADER / NAVBAR -------------------- */
+
 .navbar {
     display: flex;
     flex-wrap: wrap;
@@ -82,7 +83,7 @@ h2.section-title {
     font-size: 2rem;
 }
 
-/* search wrapper (icon + input) */
+
 .search-wrapper {
     flex: 1 1 300px;
     display: flex;
@@ -216,7 +217,7 @@ h2.section-title {
 }
 
 
-/* -------------------- MOVIE GRID -------------------- */
+
 .movie-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -243,7 +244,7 @@ h2.section-title {
     text-align: center;
 }
 
-/* movie card */
+
 
 .movie-cardGrid {
     background-color: #141414;
@@ -258,18 +259,18 @@ h2.section-title {
 
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
 
 .movie-posterGrid {
-    /* height: 260px; */
-    /* background-color: #2c2c2c; */
     align-items: center;
     justify-content: center;
-    /* color: #777; */
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    /* border-bottom: 1px solid #2a2a2a; */
-    /* background-image: linear-gradient(145deg, #222, #2e2e2e); */
 }
 
 
@@ -301,12 +302,7 @@ h2.section-title {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    /* border-bottom: 1px solid #2a2a2a; */
-
     border-radius: 24px;
-
-    /* background-image: linear-gradient(145deg, #28287a, #2e2e2e); */
-
 }
 
 
@@ -329,7 +325,6 @@ h2.section-title {
     font-weight: 600;
     font-size: 1.1rem;
     width: calc(100% - 40px);
-    /* leave space for year & button */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -352,7 +347,6 @@ h2.section-title {
 
 .movie-titleGrid {
     color: rgb(255, 255, 255);
-    /* border: 1px solid rgb(3, 128, 3); */
     border-radius: 10px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1.5em;
@@ -382,7 +376,6 @@ h2.section-title {
     pointer-events: none;
 }
 
-/* optional footer */
 .footer {
     text-align: center;
     padding: 2rem 1rem 1.5rem;
@@ -392,7 +385,7 @@ h2.section-title {
     margin-top: 3rem;
 }
 
-/* -------------------- RESPONSIVE FINE-TUNING -------------------- */
+
 @media (max-width: 700px) {
     .container {
         padding: 1rem;
@@ -414,7 +407,6 @@ h2.section-title {
 
     .search-wrapper {
         order: 3;
-        /* move search to own line on small screens */
         flex: 1 1 100%;
         max-width: 100%;
     }
@@ -444,7 +436,6 @@ h2.section-title {
     .movie-title {
         font-size: 1rem;
         width: 100%;
-        /* stack on small */
         margin-bottom: 0.2rem;
     }
 
@@ -461,7 +452,6 @@ h2.section-title {
 @media (max-width: 480px) {
     .movie-grid {
         grid-template-columns: 1fr 1fr;
-        /* two columns even on very small */
     }
 
     .movie-poster {
@@ -474,6 +464,6 @@ h2.section-title {
 
     .logo span {
         display: none;
-        /* hide text logo, keep icon */
+
     }
 }

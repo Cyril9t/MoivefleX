@@ -29,3 +29,10 @@ export const searchButton = async (query) => {
     return resp.json();
 }
 
+export const embededVideos = async (movieId) => {
+    const resp = await fetch(`${baseUrl}/movie/${movieId}/videos?api_key=${apiKey}`);
+
+    return resp.json();
+
+}
+
