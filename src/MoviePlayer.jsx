@@ -2,7 +2,9 @@ import "./index.css"
 import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom"
-export function PlayTrailer({ movieKeys, overviews, casts, crew, directors }) {
+export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directors, genres }) {
+
+    const [hold, setHold] = useState([])
 
 
 
@@ -28,17 +30,18 @@ export function PlayTrailer({ movieKeys, overviews, casts, crew, directors }) {
     useEffect(() => {
         const dtails = directors.filter((wrds) => wrds.jobs === "Director")
         if (dtails) {
-            console.log(dtails)
+            // console.log(dtails)
         } else {
             console.log("non found");
         }
 
-    }, [])
-
-    console.log(directors)
+        console.log(genres);
 
 
 
+    }, [genres])
+
+    // console.log(directors);
 
     return (
         <>
@@ -54,22 +57,22 @@ export function PlayTrailer({ movieKeys, overviews, casts, crew, directors }) {
                         <i className="fas fa-film"></i>
                         <span>MOVIEFLEX</span>
                     </div>
+
                     <div className="search-wrapper">
-                        <Link to="/">
-                            <button className="search-bar">Back To Home</button>
-                        </Link>
+
+                        <button className="search-bar BackForplayer">Back To Home ➡️</button>
+
                     </div>
-                    <div className="profile">
-                        <i className="fas fa-user-circle"></i>
-                    </div>
+                    <Link to="/">
+                        <div className="profile">
+                            <i className="fas fa-home"></i>
+                        </div>
+                    </Link>
                 </header>
 
-
                 <main className="movie-detail">
-
                     <div className="video-section">
                         <div className="video-container">
-
                             <iframe src={`https://www.youtube.com/embed/${movieKeys}?autoplay=1&rel=0`}
                                 width="100%"
                                 height="550"
@@ -77,43 +80,116 @@ export function PlayTrailer({ movieKeys, overviews, casts, crew, directors }) {
                                 allow="autoplay; gyroscope; encrypted-media" allowFullScreen ></iframe>
                         </div>
                     </div>
-
                     <div className="movie-header">
                         <h1 className="movie-main-title">{overviews.title}</h1>
+                        <h2><small><mark>Tagline:</mark></small> {genres.tagline}</h2><br />
                         <div className="movie-meta">
-                            <span className="release-year">{overviews.release_date}</span>
-                            <span className="age-rating">PG-13</span>
-                            <span className="runtime">Trailer</span>
-                            <span className="genre">Sci-Fi / Adventure</span>
+
+                            <span className="release-year"><mark><small>Released on:</small></mark> {overviews.release_date}</span>
+                            <span className="runtime"><mark><small>Budget: </small></mark>${genres.budget}</span>
+                            <span><mark><small>Revenue: </small></mark>${genres.revenue}</span>
+                            <span><mark><small>Status: </small></mark>{genres.status}.</span>
+
+                            {genres?.production_countries?.map((coun) => {
+                                return (<>
+                                    <span className="runtime"><mark><small>Production countries:</small></mark> {coun.name}</span>
+                                </>)
+
+                            })}
+
+
+
+                            {genres?.genres?.map((check) => {
+                                return (
+                                    <div className="runtime">
+                                        <span className="runtime">{check.name}</span>
+                                    </div>
+                                );
+                            })}
+
+
+
+                            {/* <span><small><mark></mark></small>{</span>
+                                    <span></span> */}
+
+
                         </div>
+
+                        <table>
+                            <caption>Spoken Languages</caption>
+                            <thead>
+                                <tr>
+                                    <th>Languages</th>
+                                    <th>Lang in English</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {genres?.spoken_languages?.map((lang) => {
+                                    return (<>
+                                        <tr>
+                                            <td>{lang.name}</td>
+                                            <td>{lang.english_name}</td>
+                                        </tr>
+                                    </>)
+
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div className="cast-section">
+                        <h2>Production Companies</h2>
+                        <div className="cast-grid">
+                            {genres?.production_companies?.map((com) => {
+                                return (
+                                    <div className="cast-card" key={com.id}>
+                                        <div className="cast-photo">
+                                            {!com.logo_path ? <b>{`${com.name} "didn't Upload Image"`}</b> : <img src={`https://image.tmdb.org/t/p/w500${com.logo_path}`} className="actor" alt={com.name} />}
+                                        </div>
+                                        <div className="cast-info">
+                                            <h4>{com.name}</h4>
+
+                                            <p><b>{com.origin_country}</b></p>
+
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+
+
+
+
+                        {genres?.origin_country?.map((ori) => {
+
+                            return (<>
+
+                                <span>{ori}</span>
+                            </>)
+
+                        })}
+
+
                         <div className="rating-block">
                             <div className="rating-stars">
                                 {setRate(overviews.vote_average)}
                                 <span className="rating-value">{Math.round(overviews.vote_average)}/10</span>
                             </div>
-
                             <div className="vote-count">
-                                <i className="fas fa-users"></i> {overviews.vote_count}K votes
+                                <i className="fas fa-users"></i>{overviews.vote_count}K votes
                             </div>
+
                         </div>
-
                     </div>
-
-
                     <div className="overview">
                         <h2>Synopsis</h2>
                         <p>{overviews.overview}</p>
                     </div>
-
-
                     <div className="cast-section">
                         <h2>Top Cast</h2>
                         <div className="cast-grid">
-
-
-
-
-
                             {casts.map((allcast) => {
                                 return (
                                     <div className="cast-card" key={allcast.credit_id}>
@@ -127,7 +203,6 @@ export function PlayTrailer({ movieKeys, overviews, casts, crew, directors }) {
                                     </div>
                                 )
                             })}
-
                         </div><br />
                         <br />
                         <h2>Crew</h2>

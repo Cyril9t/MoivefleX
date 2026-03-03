@@ -19,7 +19,6 @@ body {
 
 .overLay {
     backdrop-filter: blur(2px);
-
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -27,33 +26,27 @@ body {
     flex-direction: column;
     height: 10em;
     border-radius: 15px;
-    background: rgba(79, 95, 115, 0.53);
+    /* background: rgba(79, 95, 115, 0.53); */
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.4px);
     -webkit-backdrop-filter: blur(8.4px);
-    border: 1px solid rgba(79, 95, 115, 0.13);
+    border: 1px solid rgba(190, 7, 7, 0.659);
     width: 90%;
     margin-left: auto;
     margin-left: auto;
-
+    padding: 14px;
 
 }
 
-.overLay::after {
-    content: "Loading...";
-    margin: 15px;
+.load {
+    margin-top: 20px;
     font-family: monospace;
-    font-size: 16px;
+    font-size: 17px;
+    color: rgba(207, 192, 192, 0.555);
 
 }
 
-.loder {
-    display: none;
-    visibility: hidden;
-    opacity: 0;
-
-}
 
 .results {
     display: flex;
@@ -132,16 +125,62 @@ h2.section-title {
     background: transparent;
     border: none;
     outline: none;
-    color: #fff;
+    color: #ffffff;
     font-size: 1rem;
     width: 100%;
     font-weight: 400;
+    font-family: unset;
+
 
 }
 
+.BackForplayer {
+    color: #9c9696;
+}
+
+.iconForSearch {
+
+    width: 100%;
+    padding: 7px;
+}
+
+.fonts {
+    font-family: monospace;
+    color: #beb7b7;
+    font-size: 17px;
+}
+
+mark {
+    background-color: rgba(255, 255, 0, 0);
+    border-radius: 3px;
+    padding: -2px;
+    color: rgb(224, 0, 0);
+}
+
+table,
+th,
+td {
+    border: 1px solid rgb(209, 162, 162);
+    padding: 2px;
+    color: rgb(137, 133, 133);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+}
+
+th {
+    color: white;
+    font-family: cursive;
+    font-size: 18px;
+    font-weight: 100;
+}
+
+
+
 .search-bar::placeholder {
-    color: #8e8e8e;
-    font-weight: 300;
+    color: #bfb6b6;
+    /* font-weight: 100; */
+    font-family: monospace;
+    font-size: 17px;
 }
 
 .profile {
@@ -166,15 +205,14 @@ h2.section-title {
 .seeAll {
     display: flex;
     flex-direction: row;
-    background-color: #3d3b3b35;
+    background-color: #eb050516;
     margin: 18px;
     padding-right: 7px;
     border-radius: 12px;
     width: 90%;
     margin-left: auto;
     margin-left: auto;
-    border: 1px solid white;
-
+    border: 1px solid rgba(255, 255, 255, 0.55);
 }
 
 .seeButton {
@@ -183,6 +221,12 @@ h2.section-title {
     margin-top: 10px;
     color: #8e8c8c;
     cursor: pointer;
+}
+
+.forSearch {
+    width: 100%;
+    border-bottom: none;
+
 }
 
 
@@ -401,7 +445,7 @@ a {
 .footer {
     text-align: center;
     padding: 2rem 1rem 1.5rem;
-    color: #555;
+    color: #d00000;
     font-size: 0.9rem;
     border-top: 1px solid #202020;
     margin-top: 3rem;
@@ -430,6 +474,7 @@ a {
     .search-wrapper {
         order: 3;
         flex: 1 1 100%;
+        /* background-color: white; */
         max-width: 100%;
     }
 
@@ -447,8 +492,13 @@ a {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 
+    .moviePic {
+        width: 200px;
+    }
+
     .movie-poster {
-        height: 200px;
+        height: 100px;
+
     }
 
     .movie-info {
@@ -471,7 +521,16 @@ a {
     }
 }
 
+
+
+
 @media (max-width: 480px) {
+
+
+
+
+
+
     .movie-grid {
         grid-template-columns: 1fr 1fr;
     }
@@ -486,6 +545,16 @@ a {
 
     .logo span {
         display: none;
+
+    }
+
+    .movie-card {
+        background-color: #141414;
+        border-radius: 24px;
+        transition: all 0.25s ease;
+        box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.8);
+        border: 1px solid #2a2a2a;
+        margin-top: 2px;
 
     }
 }

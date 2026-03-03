@@ -1,9 +1,9 @@
 import "./App.css";
 import { populer, searchButton, topRated, trendings, upComings, embededVideos } from "../src/api/tmbD.js";
 import { useState, useEffect } from "react";
-import { RotateLoader } from "react-spinners";
+import { HashLoader, ClipLoader } from "react-spinners";
 import { data, Link } from "react-router-dom";
-export function Homepage({ tryVids, setOverviews, casting }) {
+export function Homepage({ tryVids, setOverviews, casting, gener }) {
     const [weeklyTrends, setweeklyTrends] = useState([]);
     const [populerMovie, setPopulerMovie] = useState([]);
     const [ratedMovie, setRatedMovie] = useState([]);
@@ -14,9 +14,7 @@ export function Homepage({ tryVids, setOverviews, casting }) {
     const [infos, setInfos] = useState("movie-poster");
     const [movieTitle, setMovieTitle] = useState("movie-title");
     const [loading, setLoading] = useState(null);
-    const [movieSearch, setMovieSearch] = useState("");
-    const [searchedMovie, setSearchedMovie] = useState([])
-    const [lnum, setLnum] = useState("50px");
+    const [doting, setDoting] = useState("")
 
     useEffect(() => {
         trendings().then(data => setweeklyTrends(data.results));
@@ -25,18 +23,15 @@ export function Homepage({ tryVids, setOverviews, casting }) {
         upComings().then(data => setUpComingMovies(data.results));
     }, [])
 
-    const handleSearch = () => {
-        searchButton(movieSearch).then(data => setSearchedMovie(data.results));
-    }
-
     useEffect(() => {
         if (weeklyTrends.length <= 0) {
             setLoading(true)
 
         } else if (weeklyTrends.length >= 1) {
-            // console.log("fetdhhd", weeklyTrends)
+
             setLoading(false)
         }
+
     }, [weeklyTrends])
 
     const showGrid = () => {
@@ -49,65 +44,46 @@ export function Homepage({ tryVids, setOverviews, casting }) {
         setInfos(infoCondition);
         setMovieTitle(tilte);
     }
+
+
+
+    useEffect(() => {
+
+        const time = setInterval(() => {
+            setDoting((prev) => (prev.length >= 4 ? "" : prev + "."));
+
+
+        }, 1000)
+
+        return () => clearInterval(time);
+    }, [])
+
     return (
 
         <>
             <div className="container">
+                <Link to="searchPage">
+                    <header className="navbar">
+                        <div className="logo">
+                            <i className="fas fa-film"></i>
 
-                <header className="navbar">
-                    <div className="logo">
-                        <i className="fas fa-film"></i>
+                            <span>MOVIEFLEX</span>
+                        </div>
 
-                        <span>MOVIEFLEX</span>
-                    </div>
-                    <div className="search-wrapper">
-                        <input type="text"
-                            className="search-bar"
-                            placeholder="Search movies..."
-                            onChange={(e) => {
-                                setMovieSearch(e.target.value);
-                            }}
-                        />
+                        <div className="search-wrapper">
 
-                    </div>
-                    <button className="buttonsWrap" onClick={() => {
-                        handleSearch();
-                        console.log(searchedMovie);
-                    }}><i className="fas fa-search search-icon"></i></button>
-                    <div className="profile">
-                        <i className="fas fa-user-circle"></i>
-                    </div>
-                </header>
+                            <button
+                                className="search-bar fonts"
+                            >Search movie....</button>
+                        </div>
 
+                        <div className="profile">
+                            <i className="fas fa-user-circle"></i>
+                        </div>
 
+                    </header>
+                </Link>
                 <main>
-
-                    {searchedMovie && <>
-                        {movieSearch && <div className="resultsPosition"><div className="resultbar"><div className="exitIcon"><button className="exit" onClick={() => {
-                            setSearchedMovie(prev => !prev);
-                        }}>&times;</button>
-                        </div> <h2 className=" forResult">Result For {movieSearch}</h2> </div></div>}
-
-                        <div className="movie-grid whileResult">
-
-                            {
-                                searchedMovie.map((movie) => {
-                                    return (
-                                        <div className="movie-cardGrid" key={movie.id}>
-                                            <div className="movie-posterGrid" ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
-                                            <div className="movie-info">
-                                                <h3 className="movie-title">{movie.title}</h3>
-                                                <span className="movie-year">{movie.release_date}</span>
-                                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
-                                            </div>
-                                        </div>
-
-                                    )
-
-                                })
-                            }
-                        </div> </>}
-
                     <h2 className="section-title">Recommended for you</h2>
                     <div className="seeAll">
                         <h1 className="category">🔥Weekly Trends</h1>
@@ -118,7 +94,7 @@ export function Homepage({ tryVids, setOverviews, casting }) {
                             }}
                         >See All</h3>
                     </div>
-                    {loading ? <div className="overLay"><RotateLoader size={lnum} color="red" /></div>
+                    {loading ? <div className="overLay"><  HashLoader size={50} color="white" /><p className="load">Loading{doting}</p></div>
                         :
                         <div className={populerG}>
                             {
@@ -128,6 +104,7 @@ export function Homepage({ tryVids, setOverviews, casting }) {
                                             tryVids(movie.id);
                                             setOverviews(movie);
                                             casting(movie.id);
+                                            gener(movie.id);
                                         }}>
                                             <Link to="player">
                                                 <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
@@ -160,6 +137,7 @@ export function Homepage({ tryVids, setOverviews, casting }) {
                                         tryVids(movie.id);
                                         setOverviews(movie);
                                         casting(movie.id);
+                                        gener(movie.id);
                                     }}>
 
                                         <Link to="player">
@@ -173,7 +151,7 @@ export function Homepage({ tryVids, setOverviews, casting }) {
                                     </div>
                                 )
                             })}
-                        </div> : <div className="overLay"><RotateLoader size={50} color="red" /></div>}
+                        </div> : <div className="overLay"><  HashLoader size={50} color="white" /><p className="load">Loading{doting}</p></div>}
 
                     <div className="seeAll">
                         <h1 className="category">⭐Top Rated</h1>
@@ -191,6 +169,7 @@ export function Homepage({ tryVids, setOverviews, casting }) {
                                         tryVids(movie.id);
                                         setOverviews(movie);
                                         casting(movie.id);
+                                        gener(movie.id);
                                     }}>
                                         <Link to="player">
                                             <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
@@ -204,7 +183,8 @@ export function Homepage({ tryVids, setOverviews, casting }) {
                                     </div>
                                 )
                             })}
-                        </div> : <div className="overLay"><RotateLoader size={50} color="red" /></div>}
+                        </div> : <div className="overLay"><  HashLoader size={50} color="white" /><p className="load">Loading{doting}</p></div>}
+
                     <div className="seeAll">
                         <h1 className="category">⬆️ Up Next</h1>
                         <h3 className="seeButton" onClick={() => {
@@ -212,13 +192,15 @@ export function Homepage({ tryVids, setOverviews, casting }) {
                             setGridHandle((prev) => !prev)
                         }}>See All</h3>
                     </div>
-                    <div className="movie-flex">
+
+                    {loading ? <div className="overLay"><  HashLoader size={60} color="white" /><p className="load">Loading{doting}</p></div> : <div className={populerG}>
                         {upComingMovies.map((movie) => {
                             return (
                                 <div className={cards} key={movie.id} onClick={() => {
                                     tryVids(movie.id);
                                     setOverviews(movie);
                                     casting(movie.id);
+                                    gener(movie.id);
                                 }}>
                                     <Link to="player">
                                         <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
@@ -231,9 +213,9 @@ export function Homepage({ tryVids, setOverviews, casting }) {
                                 </div>
                             )
                         })}
-                    </div>
+                    </div>}
                 </main>
-            </div>
+            </div >
             <footer className="footer">
                 <p>© 2025 MOVIEFLEX</p>
             </footer>

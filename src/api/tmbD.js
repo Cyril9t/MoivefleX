@@ -1,4 +1,4 @@
-const apiKey = "72efc125d507428a211dfad392cfe13f";
+const apiKey = import.meta.env.VITE_API_KEY;
 const baseUrl = "https://api.themoviedb.org/3";
 
 export const trendings = async () => {
@@ -42,4 +42,10 @@ export const moviCast = async (idforCast) => {
 
     return resp.json();
 
+}
+
+export const genreAndruntime = async (idForgener) => {
+    const resp = await fetch(`${baseUrl}/movie/${idForgener}?api_key=${apiKey}`);
+
+    return resp.json();
 }
