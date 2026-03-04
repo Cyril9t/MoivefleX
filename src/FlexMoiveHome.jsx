@@ -15,6 +15,7 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
     const [movieTitle, setMovieTitle] = useState("movie-title");
     const [loading, setLoading] = useState(null);
     const [doting, setDoting] = useState("")
+    const [profilePath, setProfilePath] = useState("moviePic")
 
     useEffect(() => {
         trendings().then(data => setweeklyTrends(data.results));
@@ -39,6 +40,8 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
         const cardCondition = gridHandle ? "movie-cardrGrid" : "movie-card";
         const infoCondition = gridHandle ? "movie-posterGrid" : "movie-poster";
         const tilte = gridHandle ? "movie-titleGrid" : "movie-title";
+        const pic = gridHandle ? "grid-Pic" : "moviePic";
+        setProfilePath(pic);
         setPopulerG(condition);
         setCards(cardCondition);
         setInfos(infoCondition);
@@ -51,15 +54,10 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
 
         const time = setInterval(() => {
             setDoting((prev) => (prev.length >= 4 ? "" : prev + "."));
-
-
         }, 1000)
-
         return () => clearInterval(time);
     }, [])
-
     return (
-
         <>
             <div className="container">
                 <Link to="searchPage">
@@ -107,7 +105,7 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                                             gener(movie.id);
                                         }}>
                                             <Link to="player">
-                                                <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                                <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className={profilePath} /></div>
                                                 <div className="movie-info">
                                                     <h3 className={movieTitle}>{movie.title}</h3>
                                                     <span className="movie-year">{movie.release_date}</span>
@@ -141,7 +139,7 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                                     }}>
 
                                         <Link to="player">
-                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className={profilePath} /></div>
                                             <div className="movie-info">
                                                 <h3 className={movieTitle}>{movie.title}</h3>
                                                 <span className="movie-year">{movie.release_date}</span>
@@ -172,12 +170,12 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                                         gener(movie.id);
                                     }}>
                                         <Link to="player">
-                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className={profilePath} /></div>
                                             <div className="movie-info">
                                                 <h3 className={movieTitle}>{movie.title}</h3>
-                                                <span className="movie-year">{movie.release_date}</span>
-                                                <span className="movie-year">{Math.round(movie.vote_average)}⭐ <small>{`(${movie.vote_average}/10)`}</small> <small><i>{`${movie.vote_count} vote`}</i></small></span>
-                                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                                <span className="movie-year grades">{movie.release_date}</span>
+                                                <span className="movie-year grades">{Math.round(movie.vote_average)}⭐ <small>{`(${movie.vote_average}/10)`}</small> <small><i>{`${movie.vote_count} vote`}</i></small></span>
+                                                {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
                                             </div>
                                         </Link>
                                     </div>
@@ -193,7 +191,7 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                         }}>See All</h3>
                     </div>
 
-                    {loading ? <div className="overLay"><  HashLoader size={60} color="white" /><p className="load">Loading{doting}</p></div> : <div className={populerG}>
+                    {loading ? <div className="overLay"><  HashLoader size={30} color="white" /><p className="load">Loading{doting}</p></div> : <div className={populerG}>
                         {upComingMovies.map((movie) => {
                             return (
                                 <div className={cards} key={movie.id} onClick={() => {
@@ -203,7 +201,7 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                                     gener(movie.id);
                                 }}>
                                     <Link to="player">
-                                        <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                        <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className={profilePath} /></div>
                                         <div className="movie-info">
                                             <h3 className={movieTitle}>{movie.title}</h3>
                                             <span className="movie-year">{movie.release_date}</span>

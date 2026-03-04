@@ -6,8 +6,9 @@ export function SearchPage({ gener, casting, tryVids, setOverviews }) {
     const [movieSearch, setMovieSearch] = useState("");
     const [searchedMovie, setSearchedMovie] = useState([])
     const [searchLoder, setSearchLoder] = useState(null)
-    const [doting, setDoting] = useState("")
-
+    const [doting, setDoting] = useState("");
+    const [handleGrid, setHandlGrid] = useState(false);
+    const [profilePath, setProfilePath] = useState("moviePic")
 
     const handleSearch = () => {
         searchButton(movieSearch).then(data => setSearchedMovie(data.results));
@@ -80,9 +81,9 @@ export function SearchPage({ gener, casting, tryVids, setOverviews }) {
                                             }}>
                                                 <>
                                                     <Link to="/player">
-                                                        <div className="movie-posterGrid" ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="moviePic" /></div>
+                                                        <div className="movie-posterGrid" ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="grid-Pic " /></div>
                                                         <div className="movie-info">
-                                                            <h3 className="movie-title">{movie.title}</h3>
+                                                            <h3 className="movie-titleGrid">{movie.title}</h3>
                                                             <span className="movie-year">{movie.release_date}</span>
                                                             <button className="favorite-btn"><i className="far fa-heart"></i></button>
                                                         </div>

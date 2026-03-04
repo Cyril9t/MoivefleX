@@ -13,16 +13,6 @@ function App() {
   const [directors, setDirectors] = useState([]);
 
   const [genres, setGenres] = useState([]);
-  const [budget, setBudget] = useState("");
-  const [runtime, setRuntime] = useState("");
-  const [revenue, setRevenue] = useState("");
-  const [orginCountry, setOrginCountry] = useState([]);
-  const [productionCountries, setProductionCountries] = useState([]);
-  const [companies, setCompanies] = useState([]);
-  const [languages, setLanguages] = useState([]);
-  const [tagLine, setTagLine] = useState("");
-  const [status, setStatus] = useState("")
-
 
   const tryVids = (movieId) => {
     embededVideos(movieId).then(data => {
@@ -45,15 +35,7 @@ function App() {
   const gener = (idForgener) => {
     genreAndruntime(idForgener).then((data) => {
       setGenres(data)
-      // setBudget(data.budget)
-      // setOrginCountry(data.origin_country)
-      // setCompanies(data.production_companies)
-      // setProductionCountries(data.production_countries)
-      // setRevenue(data.revenue)
-      // setRuntime(data.runtime)
-      // setLanguages(data.spoken_languages);
-      // setTagLine(data.tagline)
-      // setStatus(data.status)
+
     });
   }
 
