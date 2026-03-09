@@ -49,3 +49,39 @@ export const genreAndruntime = async (idForgener) => {
 
     return resp.json();
 }
+
+
+export const castProfiles = async (personId) => {
+    const resp = await fetch(`${baseUrl}/person/${personId}?api_key=${apiKey}&language=en-US`);
+
+    return resp.json();
+}
+
+export const actorOtherMovies = async (id) => {
+    const resp = await fetch(`${baseUrl}/person/${id}/movie_credits?api_key=${apiKey}`);
+
+    return resp.json();
+}
+export const contryFlags = async (alpha) => {
+    const resp = await fetch(`https://restcountries.com/v3.1/alpha/${alpha}`);
+
+
+    return resp.json();
+}
+
+export const tvshows = async () => {
+    const resp = await fetch(`${baseUrl}/tv/popular?api_key=${apiKey}`);
+
+    return resp.json();
+}
+export const tvshowsSeasons = async (tvId) => {
+    const resp = await fetch(`${baseUrl}/tv/${tvId}?api_key=${apiKey}`);
+
+    return resp.json();
+}
+export const tvshowsEpisodes = async (tvId, seasonNumber) => {
+    const resp = await fetch(`${baseUrl}/tv/${tvId}/season/${seasonNumber}?api_key=${apiKey}`);
+
+    return resp.json();
+}
+

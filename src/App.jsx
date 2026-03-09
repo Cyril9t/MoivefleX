@@ -1,9 +1,11 @@
 import { Homepage } from "./FlexMoiveHome"
 import { embededVideos } from "./api/tmbD";
 import { PlayTrailer } from "./MoviePlayer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, data } from "react-router-dom";
-import { moviCast, genreAndruntime } from "./api/tmbD";
+import { ActorBio } from "./ActorProfile"
+import { moviCast, genreAndruntime, castProfiles, actorOtherMovies, contryFlags, tvshowsSeasons } from "./api/tmbD";
+import { TvshowsPlayer } from "./TvshowPlayer";
 import { SearchPage } from "./searchPage";
 function App() {
   const [overviews, setOverviews] = useState("")
@@ -11,8 +13,11 @@ function App() {
   const [casts, setCasts] = useState([])
   const [crew, setCrew] = useState([])
   const [directors, setDirectors] = useState([]);
-
+  const [actorProfile, setActorProfile] = useState([]);
+  const [actorMovies, setActorMovies] = useState([]);
+  const [seasons, setSeasons] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [eachtvID, setEachtvID] = useState("")
 
   const tryVids = (movieId) => {
     embededVideos(movieId).then(data => {
@@ -39,20 +44,50 @@ function App() {
     });
   }
 
+  const actorBio = (personId) => {
+    castProfiles(personId).then((data) => {
+      setActorProfile(data);
+    })
+  }
+
+  const alsoKnownFor = (id) => {
+    actorOtherMovies(id).then(data => setActorMovies(data.cast));
+  }
+
+
+  const tvSeasons = (tvId) => {
+
+    tvshowsSeasons(tvId).then((data) => {
+      setSeasons(data);
+    })
+
+  }
+
+
+
   return (
     <Routes>
       <Route
         path="/"
-        element={<Homepage gener={gener} casting={casting} tryVids={tryVids} setOverviews={setOverviews} />}
+        element={<Homepage setEachtvID={setEachtvID} tvSeasons={tvSeasons} gener={gener} casting={casting} tryVids={tryVids} setOverviews={setOverviews} />}
       />
       <Route
         path="player"
-        element={<PlayTrailer genres={genres} directors={directors} movieKeys={movieKeys} overviews={overviews} casts={casts} crew={crew} />}
+        element={<PlayTrailer alsoKnownFor={alsoKnownFor} actorBio={actorBio} actorProfile={actorProfile} genres={genres} directors={directors} movieKeys={movieKeys} overviews={overviews} casts={casts} crew={crew} />}
       />
 
       <Route
         path="searchPage"
         element={<SearchPage gener={gener} casting={casting} tryVids={tryVids} setOverviews={setOverviews} />}
+      />
+
+      <Route
+        path="actorProfile"
+        element={<ActorBio actorMovies={actorMovies} actorProfile={actorProfile} />}
+      />
+      <Route
+        path="tvshowsPlayer"
+        element={<TvshowsPlayer eachtvID={eachtvID} seasons={seasons} />}
       />
 
     </Routes>

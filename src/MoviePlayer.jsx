@@ -1,17 +1,28 @@
 import "./index.css"
 import { useState, useEffect } from "react";
+import { data, Link } from "react-router-dom"
+import { HashLoader } from "react-spinners";
+export function PlayTrailer({ alsoKnownFor, movieKeys, overviews, actorBio, actorProfile, casts, crew, directors, genres }) {
+    const [flagsConut, setFlagsConut] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-import { Link } from "react-router-dom"
-export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directors, genres }) {
 
-    const [hold, setHold] = useState([])
+    useEffect(() => {
+        genres?.origin_country?.forEach(async (alpha) => {
+            const resp = await fetch(`https://restcountries.com/v3.1/alpha/${alpha}`);
+            const country = await resp.json();
+            setFlagsConut(country[0].flags.png);
+        });
+
+
+    }, [])
+
 
 
 
     const setRate = (rateings) => {
         const star = [];
         const halfstars = [];
-
 
         const fullStar = Math.floor(rateings);
         const halfStar = (rateings % 1) >= 0.5 ? 1 : 0;
@@ -26,32 +37,24 @@ export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directo
         return (<div>{star}{halfstars}</div>)
     }
 
-
     useEffect(() => {
         const dtails = directors.filter((wrds) => wrds.jobs === "Director")
         if (dtails) {
-            // console.log(dtails)
+
         } else {
             console.log("non found");
         }
 
-        console.log(genres);
-
-
 
     }, [genres])
 
-    // console.log(directors);
+
 
     return (
         <>
 
 
             <div className="container">
-
-
-
-
                 <header className="navbar">
                     <div className="logo">
                         <i className="fas fa-film"></i>
@@ -91,9 +94,9 @@ export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directo
                             <span><mark><small>Status: </small></mark>{genres.status}.</span>
 
                             {genres?.production_countries?.map((coun) => {
-                                return (<>
+                                return (<div key={crypto.randomUUID()}>
                                     <span className="runtime"><mark><small>Production countries:</small></mark> {coun.name}</span>
-                                </>)
+                                </div>)
 
                             })}
 
@@ -101,16 +104,12 @@ export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directo
 
                             {genres?.genres?.map((check) => {
                                 return (
-                                    <div className="runtime">
+                                    <div className="runtime" key={crypto.randomUUID()}>
                                         <span className="runtime">{check.name}</span>
                                     </div>
                                 );
                             })}
 
-
-
-                            {/* <span><small><mark></mark></small>{</span>
-                                    <span></span> */}
 
 
                         </div>
@@ -125,16 +124,28 @@ export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directo
                             </thead>
                             <tbody>
                                 {genres?.spoken_languages?.map((lang) => {
-                                    return (<>
-                                        <tr>
+                                    return (
+                                        <tr key={crypto.randomUUID()}>
                                             <td>{lang.name}</td>
                                             <td>{lang.english_name}</td>
                                         </tr>
-                                    </>)
+                                    )
 
                                 })}
                             </tbody>
                         </table>
+                        <br />
+                        <h4>Contry(ies)</h4>
+                        {genres?.origin_country?.map((countryName) => {
+                            return (
+                                <div key={crypto.randomUUID()}>
+                                    {countryName}
+                                </div>
+                            )
+                        })}
+                        <div>
+                            <img src={flagsConut} width={150} alt="countyr flag" />
+                        </div>
                     </div>
 
 
@@ -158,20 +169,6 @@ export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directo
                             })}
                         </div>
 
-
-
-
-
-                        {genres?.origin_country?.map((ori) => {
-
-                            return (<>
-
-                                <span>{ori}</span>
-                            </>)
-
-                        })}
-
-
                         <div className="rating-block">
                             <div className="rating-stars">
                                 {setRate(overviews.vote_average)}
@@ -190,19 +187,26 @@ export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directo
                     <div className="cast-section">
                         <h2>Top Cast</h2>
                         <div className="cast-grid">
+
                             {casts.map((allcast) => {
                                 return (
-                                    <div className="cast-card" key={allcast.credit_id}>
-                                        <div className="cast-photo">{!allcast.profile_path ? <b>{`${allcast.name} "didn't Upload Image"`}</b> : <img src={`https://image.tmdb.org/t/p/w500${allcast.profile_path}`} className="actor" alt={allcast.name} />}</div>
-                                        <div className="cast-info">
-                                            <h4>{allcast.name}</h4>
-                                            <p>played as👇</p>
-                                            <p><b>{allcast.character}</b></p>
+                                    <Link to="/actorProfile" key={crypto.randomUUID()}>
+                                        <div className="cast-card" onClick={() => {
+                                            actorBio(allcast.id)
+                                            alsoKnownFor(allcast.id)
+                                        }}>
+                                            <div className="cast-photo">{!allcast.profile_path ? <b>{`${allcast.name} "didn't Upload Image"`}</b> : <img src={`https://image.tmdb.org/t/p/w500${allcast.profile_path}`} className="actor" alt={allcast.name} />}</div>
+                                            <div className="cast-info">
+                                                <h4>{allcast.name}</h4>
+                                                <p>Cast as 👇</p>
+                                                <p><b>{allcast.character}</b></p>
 
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 )
                             })}
+
                         </div><br />
                         <br />
                         <h2>Crew</h2>
@@ -211,7 +215,7 @@ export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directo
                         <div className="cast-grid">
                             {crew.map((allCrew) => {
                                 return (
-                                    <div className="cast-card" key={allCrew.credit_id} >
+                                    <div className="cast-card" key={crypto.randomUUID()} >
                                         <div className="cast-photo" >{!allCrew.profile_path ? <b>{`${allCrew.name} "didn't Upload Image"`}</b> : <img src={`https://image.tmdb.org/t/p/w500${allCrew.profile_path}`} className="actor" alt={allCrew.name} />}</div>
                                         <div className="cast-info">
                                             <h4>{allCrew.name}</h4>
@@ -224,37 +228,11 @@ export function PlayTrailer({ movieKeys, overviews, budget, casts, crew, directo
                         </div>
                     </div>
 
-
-
-
-                    <div className="crew-section">
-
-                        <div className="crew-item">
-                            <span className="crew-label">Director:</span>
-                            <span className="crew-value">{directors.name}</span>
-                        </div>
-                        <div className="crew-item">
-                            <span className="crew-label">Writers:</span>
-                            <span className="crew-value"></span>
-
-                        </div>
-
-
-                    </div>
-
                 </main >
             </div >
-
-
             <footer className="footer">
                 <p>© 2025 MOVIEFLEX</p>
             </footer>
-
-
-
-
-
-
         </>
     )
 

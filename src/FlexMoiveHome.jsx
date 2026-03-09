@@ -1,9 +1,9 @@
 import "./App.css";
-import { populer, searchButton, topRated, trendings, upComings, embededVideos } from "../src/api/tmbD.js";
+import { populer, searchButton, topRated, trendings, upComings, embededVideos, tvshows } from "../src/api/tmbD.js";
 import { useState, useEffect } from "react";
 import { HashLoader, ClipLoader } from "react-spinners";
 import { data, Link } from "react-router-dom";
-export function Homepage({ tryVids, setOverviews, casting, gener }) {
+export function Homepage({ genres, tryVids, setOverviews, casting, gener, tvSeasons, setEachtvID }) {
     const [weeklyTrends, setweeklyTrends] = useState([]);
     const [populerMovie, setPopulerMovie] = useState([]);
     const [ratedMovie, setRatedMovie] = useState([]);
@@ -15,14 +15,22 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
     const [movieTitle, setMovieTitle] = useState("movie-title");
     const [loading, setLoading] = useState(null);
     const [doting, setDoting] = useState("")
-    const [profilePath, setProfilePath] = useState("moviePic")
+    const [profilePath, setProfilePath] = useState("moviePic");
+    const [tvshow, setTvshow] = useState([]);
+
 
     useEffect(() => {
         trendings().then(data => setweeklyTrends(data.results));
         populer().then(data => setPopulerMovie(data.results));
         topRated().then(data => setRatedMovie(data.results));
         upComings().then(data => setUpComingMovies(data.results));
+        tvshows().then(data => setTvshow(data.results));
+
     }, [])
+
+
+
+
 
     useEffect(() => {
         if (weeklyTrends.length <= 0) {
@@ -82,7 +90,7 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                     </header>
                 </Link>
                 <main>
-                    <h2 className="section-title">Recommended for you</h2>
+                    <h2 className="section-title">Recommended</h2>
                     <div className="seeAll">
                         <h1 className="category">🔥Weekly Trends</h1>
                         <h3 className="seeButton"
@@ -103,6 +111,7 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                                             setOverviews(movie);
                                             casting(movie.id);
                                             gener(movie.id);
+
                                         }}>
                                             <Link to="player">
                                                 <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className={profilePath} /></div>
@@ -117,6 +126,7 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                                 })
                             }
                         </div>}
+
 
                     <div className="seeAll">
                         <h1 className="category">🚀Populer</h1>
@@ -143,6 +153,41 @@ export function Homepage({ tryVids, setOverviews, casting, gener }) {
                                             <div className="movie-info">
                                                 <h3 className={movieTitle}>{movie.title}</h3>
                                                 <span className="movie-year">{movie.release_date}</span>
+                                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                )
+                            })}
+                        </div> : <div className="overLay"><  HashLoader size={50} color="white" /><p className="load">Loading{doting}</p></div>}
+
+                    <div className="seeAll">
+                        <h1 className="category">📺Tv Shows</h1>
+                        <h3 className="seeButton"
+                            onClick={() => {
+                                showGrid();
+                                setGridHandle((prev) => !prev)
+                            }}
+                        >See All</h3>
+                    </div>
+                    {!loading ?
+                        <div className={populerG}>
+                            {tvshow.map((movie) => {
+                                return (
+                                    <div className={cards} key={movie.id} onClick={() => {
+                                        //  tryVids(movie.id);
+                                        // setOverviews(movie);
+                                        // casting(movie.id);
+                                        // gener(movie.id);
+                                        tvSeasons(movie.id);
+                                        setEachtvID(movie.id);
+                                    }}>
+
+                                        <Link to="/tvshowsPlayer">
+                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className={profilePath} /></div>
+                                            <div className="movie-info">
+                                                <h3 className={movieTitle}>{movie.name}</h3>
+                                                <span className="movie-year">{movie.first_air_date}</span>
                                                 <button className="favorite-btn"><i className="far fa-heart"></i></button>
                                             </div>
                                         </Link>

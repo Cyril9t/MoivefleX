@@ -1,0 +1,473 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0b0b0f;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #fff;
+    line-height: 1.5;
+}
+
+/* Header */
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    background: rgba(15, 15, 20, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    gap: 0.8rem;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 40px;
+    padding: 0.2rem 0.2rem 0.2rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s;
+    flex: 1 1 200px;
+    min-width: 160px;
+}
+
+.search-wrapper:focus-within {
+    border-color: #a18cd1;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-icon {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.search-bar {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 0.5rem;
+    color: #fff;
+    font-size: 0.9rem;
+    width: 100%;
+    outline: none;
+}
+
+.search-bar::placeholder {
+    color: #666;
+}
+
+/* Main container */
+.container {
+    max-width: 1200px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+/* Profile layout */
+.profiles {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Profile card */
+.profiles-card {
+    background: rgba(20, 20, 30, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    transition: transform 0.2s;
+
+}
+
+.profiles-card:hover {
+    transform: translateY(-5px);
+}
+
+.profiles-img {
+    height: 70%;
+}
+
+.actorProfile {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #2a2a3a, #1a1a28);
+    margin: 0 auto 1.5rem;
+    border: 1px solid rgb(196, 192, 192);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.actor-name {
+    margin-top: 25px;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+.actor-role {
+    color: #a18cd1;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.popularity-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(161, 140, 209, 0.2);
+    border: 1px solid rgba(161, 140, 209, 0.4);
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    color: #fbc2eb;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.popularity-badge i {
+    color: #ffd966;
+}
+
+/* Profile details */
+.profiles-details {
+    background: rgba(20, 20, 30, 0.4);
+    backdrop-filter: blur(4px);
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bio-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.bio-section p {
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+/* Info grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    box-shadow: #37343450 2px 3px 10px 6px;
+    border-radius: 12px;
+    padding: 17px;
+    backdrop-filter: blur(20px);
+
+}
+
+
+.info-item {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    padding: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.2s;
+    transition: 0.3s;
+}
+
+.info-item:hover {
+    transform: scale(1.06);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.info-item i {
+    font-size: 1.4rem;
+    color: #a18cd1;
+    margin-bottom: 0.8rem;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 0.2rem;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
+    word-break: break-word;
+}
+
+/* Known For section */
+.known-for {
+    margin-top: 3rem;
+}
+
+.known-for h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.movie-card {
+    background: rgba(30, 30, 40, 0.6);
+    backdrop-filter: blur(4px);
+    border-radius: 16px;
+    padding: 0.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.movie-card:hover {
+    transform: scale(1.03);
+    border-color: rgba(161, 140, 209, 0.5);
+    background: rgba(40, 40, 55, 0.8);
+}
+
+.movie-poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background: linear-gradient(145deg, #2a2a3a, #1a1a28);
+    border-radius: 12px;
+    /* margin-bottom: 0.8rem; */
+    background-image: url('https://via.placeholder.com/200x300/333/666?text=Poster');
+    background-size: cover;
+    background-position: center;
+}
+
+.known {
+    border-radius: 12px;
+
+}
+
+.movie-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    color: #eee;
+}
+
+.movie-year {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+/* ========== RESPONSIVE FIXES FOR 360px AND BELOW ========== */
+@media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.8rem;
+    }
+
+
+    .logo {
+        text-align: center;
+        font-size: 1.8rem;
+    }
+
+    .search-wrapper {
+        width: 100%;
+        min-width: auto;
+    }
+
+
+
+    .profiles {
+        display: flex;
+        flex-direction: row;
+        margin: -20px;
+        margin-bottom: 30px;
+
+    }
+
+    .profiles-card {
+        max-width: 280px;
+        margin: 0 auto;
+        padding: 1.5rem 1rem;
+    }
+
+    .profiles-img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .actor-name {
+        font-size: 1.8rem;
+    }
+
+    .actor-role {
+        font-size: 1rem;
+    }
+
+    .popularity-badge {
+        font-size: 1rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .profiles-details {
+        padding: 1.5rem;
+    }
+
+    .bio-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .bio-section p {
+        font-size: 0.95rem;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .info-item {
+        padding: 1rem;
+    }
+
+    .info-item i {
+        font-size: 1.2rem;
+    }
+
+    .info-label {
+        font-size: 0.7rem;
+    }
+
+    .info-value {
+        font-size: 1rem;
+    }
+
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .movie-card {
+        padding: 0.8rem;
+    }
+
+    .movie-title {
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra small devices (360px and down) */
+@media (max-width: 360px) {
+    .header {
+        padding: 0.6rem;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+    }
+
+    .profiles-card {
+        max-width: 240px;
+    }
+
+    .profiles-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .actor-name {
+        font-size: 1.6rem;
+    }
+
+    .actor-role {
+        font-size: 0.9rem;
+    }
+
+    .popularity-badge {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.8rem;
+    }
+
+    .profiles-details {
+        padding: 1.2rem;
+    }
+
+    .bio-section h2 {
+        font-size: 1.4rem;
+    }
+
+    .bio-section p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        /* stack all info items vertically */
+        gap: 0.8rem;
+    }
+
+    .info-item {
+        padding: 0.8rem;
+    }
+
+    .info-item i {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-label {
+        font-size: 0.65rem;
+    }
+
+    .info-value {
+        font-size: 0.95rem;
+    }
+
+    .known-for h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .movie-grid {
+        gap: 0.8rem;
+    }
+
+    .movie-card {
+        padding: 0.6rem;
+    }
+
+    .movie-title {
+        font-size: 0.85rem;
+    }
+
+    .movie-year {
+        font-size: 0.75rem;
+    }
+}
