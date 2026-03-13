@@ -114,7 +114,7 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                                                 <div className="movie-info">
                                                     <h3 className={movieTitle}>{movie.title}</h3>
                                                     <span className="movie-year">{movie.release_date}</span>
-                                                    <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                                    {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
                                                 </div>
                                             </Link>
                                         </div>
@@ -149,7 +149,7 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                                             <div className="movie-info">
                                                 <h3 className={movieTitle}>{movie.title}</h3>
                                                 <span className="movie-year">{movie.release_date}</span>
-                                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                                {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
                                             </div>
                                         </Link>
                                     </div>
@@ -185,7 +185,7 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                                             <div className="movie-info">
                                                 <h3 className={movieTitle}>{movie.name}</h3>
                                                 <span className="movie-year">{movie.first_air_date}</span>
-                                                <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                                {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
                                             </div>
                                         </Link>
                                     </div>
@@ -247,7 +247,7 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                                         <div className="movie-info">
                                             <h3 className={movieTitle}>{movie.title}</h3>
                                             <span className="movie-year">{movie.release_date}</span>
-                                            <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                            {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
                                         </div>
                                     </Link>
                                 </div>
