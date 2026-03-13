@@ -172,7 +172,7 @@ body {
 }
 
 /* Info grid */
-.info-grid {
+.infoss-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
@@ -184,7 +184,7 @@ body {
 }
 
 
-.info-item {
+.infoss-item {
     background: rgba(255, 255, 255, 0.02);
     border-radius: 16px;
     padding: 1.2rem;
@@ -193,18 +193,18 @@ body {
     transition: 0.3s;
 }
 
-.info-item:hover {
+.infoss-item:hover {
     transform: scale(1.06);
     background: rgba(255, 255, 255, 0.05);
 }
 
-.info-item i {
+.infoss-item i {
     font-size: 1.4rem;
     color: #a18cd1;
     margin-bottom: 0.8rem;
 }
 
-.info-label {
+.infoss-label {
     display: block;
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -213,7 +213,7 @@ body {
     margin-bottom: 0.2rem;
 }
 
-.info-value {
+.infoss-value {
     font-size: 1.1rem;
     font-weight: 500;
     color: #fff;
@@ -233,13 +233,13 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-.movie-grid {
+.moviess-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1.5rem;
 }
 
-.movie-card {
+.moviess-card {
     background: rgba(30, 30, 40, 0.6);
     backdrop-filter: blur(4px);
     border-radius: 16px;
@@ -249,13 +249,13 @@ body {
     text-align: center;
 }
 
-.movie-card:hover {
+.moviess-card:hover {
     transform: scale(1.03);
     border-color: rgba(161, 140, 209, 0.5);
     background: rgba(40, 40, 55, 0.8);
 }
 
-.movie-poster {
+.moviess-poster {
     width: 100%;
     aspect-ratio: 2 / 3;
     background: linear-gradient(145deg, #2a2a3a, #1a1a28);
@@ -271,13 +271,13 @@ body {
 
 }
 
-.movie-title {
+.moviess-title {
     font-weight: 600;
     margin-bottom: 0.2rem;
     color: #eee;
 }
 
-.movie-year {
+.moviess-year {
     color: #888;
     font-size: 0.85rem;
 }
@@ -347,37 +347,37 @@ body {
         font-size: 0.95rem;
     }
 
-    .info-grid {
+    .infoss-grid {
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
     }
 
-    .info-item {
+    .infoss-item {
         padding: 1rem;
     }
 
-    .info-item i {
+    .infoss-item i {
         font-size: 1.2rem;
     }
 
-    .info-label {
+    .infoss-label {
         font-size: 0.7rem;
     }
 
-    .info-value {
+    .infoss-value {
         font-size: 1rem;
     }
 
-    .movie-grid {
+    .moviess-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
 
-    .movie-card {
+    .moviess-card {
         padding: 0.8rem;
     }
 
-    .movie-title {
+    .moviess-title {
         font-size: 0.9rem;
     }
 }
@@ -427,26 +427,26 @@ body {
         line-height: 1.6;
     }
 
-    .info-grid {
+    .infoss-grid {
         grid-template-columns: 1fr;
-        /* stack all info items vertically */
+        /* stack all infoss items vertically */
         gap: 0.8rem;
     }
 
-    .info-item {
+    .infoss-item {
         padding: 0.8rem;
     }
 
-    .info-item i {
+    .infoss-item i {
         font-size: 1.1rem;
         margin-bottom: 0.5rem;
     }
 
-    .info-label {
+    .infoss-label {
         font-size: 0.65rem;
     }
 
-    .info-value {
+    .infoss-value {
         font-size: 0.95rem;
     }
 
@@ -455,19 +455,19 @@ body {
         margin-bottom: 1rem;
     }
 
-    .movie-grid {
+    .moviess-grid {
         gap: 0.8rem;
     }
 
-    .movie-card {
+    .moviess-card {
         padding: 0.6rem;
     }
 
-    .movie-title {
+    .moviess-title {
         font-size: 0.85rem;
     }
 
-    .movie-year {
+    .moviess-year {
         font-size: 0.75rem;
     }
 }

@@ -1,17 +1,22 @@
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { searchButton } from "./api/tmbD";
+import { searchButton, tvshowsSearch } from "./api/tmbD";
 import { HashLoader, ScaleLoader } from "react-spinners";
-export function SearchPage({ gener, casting, tryVids, setOverviews }) {
+export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, setOverviews }) {
     const [movieSearch, setMovieSearch] = useState("");
     const [searchedMovie, setSearchedMovie] = useState([])
     const [searchLoder, setSearchLoder] = useState(null)
     const [doting, setDoting] = useState("");
     const [handleGrid, setHandlGrid] = useState(false);
-    const [profilePath, setProfilePath] = useState("moviePic")
+    const [profilePath, setProfilePath] = useState("moviePic");
+    const [tv, setTv] = useState([]);
 
     const handleSearch = () => {
         searchButton(movieSearch).then(data => setSearchedMovie(data.results));
+        tvshowsSearch(movieSearch).then((data) => {
+            setTv(data.results);
+            console.log("tvshows", data);
+        })
     }
 
     useEffect(() => {
@@ -52,7 +57,7 @@ export function SearchPage({ gener, casting, tryVids, setOverviews }) {
                     />
                     <button className="buttonsWrap" onClick={() => {
                         handleSearch();
-                        console.log(searchedMovie);
+
                     }}>
                         <i className="fas fa-search search-icon iconForSearch"></i>
                     </button>
@@ -84,8 +89,8 @@ export function SearchPage({ gener, casting, tryVids, setOverviews }) {
                                                         <div className="movie-posterGrid" ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="grid-Pic " /></div>
                                                         <div className="movie-info">
                                                             <h3 className="movie-titleGrid">{movie.title}</h3>
-                                                            <span className="movie-year">{movie.release_date}</span>
-                                                            <button className="favorite-btn"><i className="far fa-heart"></i></button>
+                                                            <span className="movie-year">{movie.release_date || movie.first_air_date}</span>
+                                                            {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
                                                         </div>
                                                     </Link>
                                                 </>
@@ -94,9 +99,40 @@ export function SearchPage({ gener, casting, tryVids, setOverviews }) {
 
                                     })
                                 }
-                            </>}
+
+                            </>
+                        }
                     </div> </>}</>}
+
+            {movieSearch && <div className="resultsPosition"><div className="resultbar"><div className="exitIcon">
+            </div> <h2 className=" forResult">Tv Shows Result For {movieSearch}</h2> </div></div>}
+
+            <div className="movie-grid whileResult">
+
+                {tv.map((movie) => {
+                    return (
+                        <div className="movie-cardGrid" key={movie.id} onClick={() => {
+                            tvSeasons(movie.id);
+                            playtvShows(movie.id);
+                        }}>
+                            <>
+                                <Link to="/TvshowsPlayer">
+                                    <div className="movie-posterGrid" ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="grid-Pic " /></div>
+                                    <div className="movie-info">
+                                        <h3 className="movie-titleGrid">{movie.title}</h3>
+                                        <span className="movie-year">{movie.release_date || movie.first_air_date}</span>
+                                        {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
+                                    </div>
+                                </Link>
+                            </>
+                        </div>
+                    )
+
+                })
+                }
+            </div>
 
         </div>
     )
 }
+

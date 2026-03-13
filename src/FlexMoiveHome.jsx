@@ -3,7 +3,7 @@ import { populer, searchButton, topRated, trendings, upComings, embededVideos, t
 import { useState, useEffect } from "react";
 import { HashLoader, ClipLoader } from "react-spinners";
 import { data, Link } from "react-router-dom";
-export function Homepage({ genres, tryVids, setOverviews, casting, gener, tvSeasons, setEachtvID }) {
+export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, gener, tvSeasons, setEachtvID }) {
     const [weeklyTrends, setweeklyTrends] = useState([]);
     const [populerMovie, setPopulerMovie] = useState([]);
     const [ratedMovie, setRatedMovie] = useState([]);
@@ -27,10 +27,6 @@ export function Homepage({ genres, tryVids, setOverviews, casting, gener, tvSeas
         tvshows().then(data => setTvshow(data.results));
 
     }, [])
-
-
-
-
 
     useEffect(() => {
         if (weeklyTrends.length <= 0) {
@@ -181,6 +177,7 @@ export function Homepage({ genres, tryVids, setOverviews, casting, gener, tvSeas
                                         // gener(movie.id);
                                         tvSeasons(movie.id);
                                         setEachtvID(movie.id);
+                                        playtvShows(movie.id);
                                     }}>
 
                                         <Link to="/tvshowsPlayer">

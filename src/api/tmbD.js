@@ -85,3 +85,21 @@ export const tvshowsEpisodes = async (tvId, seasonNumber) => {
     return resp.json();
 }
 
+export const tvshowsEpisodesPlays = async (tvId, seasonNumber, epiNumber) => {
+    const resp = await fetch(`${baseUrl}/tv/${tvId}/season/${seasonNumber}/episode/${epiNumber}/videos?api_key=${apiKey}`);
+
+    return resp.json();
+}
+export const tvshowsSearch = async (search) => {
+    const resp = await fetch(`${baseUrl}/search/tv?api_key=${apiKey}&query=${search}`);
+
+    return resp.json();
+}
+export const tvshowsPlayer = async (showId) => {
+    const resp = await fetch(`${baseUrl}/tv/${showId}/videos?api_key=${apiKey}`);
+
+    return resp.json();
+}
+
+
+

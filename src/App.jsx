@@ -4,7 +4,7 @@ import { PlayTrailer } from "./MoviePlayer";
 import { useEffect, useState } from "react";
 import { Routes, Route, data } from "react-router-dom";
 import { ActorBio } from "./ActorProfile"
-import { moviCast, genreAndruntime, castProfiles, actorOtherMovies, contryFlags, tvshowsSeasons } from "./api/tmbD";
+import { moviCast, genreAndruntime, castProfiles, actorOtherMovies, contryFlags, tvshowsSeasons, tvshowsPlayer } from "./api/tmbD";
 import { TvshowsPlayer } from "./TvshowPlayer";
 import { SearchPage } from "./searchPage";
 function App() {
@@ -17,7 +17,8 @@ function App() {
   const [actorMovies, setActorMovies] = useState([]);
   const [seasons, setSeasons] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [eachtvID, setEachtvID] = useState("")
+  const [eachtvID, setEachtvID] = useState("");
+  const [tvTrailer, setTvTrailer] = useState([]);
 
   const tryVids = (movieId) => {
     embededVideos(movieId).then(data => {
@@ -59,6 +60,21 @@ function App() {
 
     tvshowsSeasons(tvId).then((data) => {
       setSeasons(data);
+
+      console.log(data);
+    })
+
+  }
+
+  const playtvShows = (showid) => {
+    tvshowsPlayer(showid).then((data) => {
+      // console.log(data);
+      const trailers = data.results.find((vid) => (vid.type === "Trailer" && vid.site === "YouTube" || vid.type === "Teaser" || vid.type === "Featurette" || vid.type === "Clip"))
+      if (trailers) {
+        setTvTrailer(trailers.key);
+      }
+
+
     })
 
   }
@@ -69,7 +85,7 @@ function App() {
     <Routes>
       <Route
         path="/"
-        element={<Homepage setEachtvID={setEachtvID} tvSeasons={tvSeasons} gener={gener} casting={casting} tryVids={tryVids} setOverviews={setOverviews} />}
+        element={<Homepage playtvShows={playtvShows} setEachtvID={setEachtvID} tvSeasons={tvSeasons} gener={gener} casting={casting} tryVids={tryVids} setOverviews={setOverviews} />}
       />
       <Route
         path="player"
@@ -78,7 +94,7 @@ function App() {
 
       <Route
         path="searchPage"
-        element={<SearchPage gener={gener} casting={casting} tryVids={tryVids} setOverviews={setOverviews} />}
+        element={<SearchPage playtvShows={playtvShows} tvSeasons={tvSeasons} gener={gener} casting={casting} tryVids={tryVids} setOverviews={setOverviews} />}
       />
 
       <Route
@@ -87,7 +103,7 @@ function App() {
       />
       <Route
         path="tvshowsPlayer"
-        element={<TvshowsPlayer eachtvID={eachtvID} seasons={seasons} />}
+        element={<TvshowsPlayer tvTrailer={tvTrailer} eachtvID={eachtvID} seasons={seasons} />}
       />
 
     </Routes>
