@@ -190,11 +190,12 @@ export function PlayTrailer({ alsoKnownFor, movieKeys, overviews, actorBio, acto
 
                             {casts.map((allcast) => {
                                 return (
-                                    <Link to="/actorProfile" key={crypto.randomUUID()}>
-                                        <div className="cast-card" onClick={() => {
-                                            actorBio(allcast.id)
-                                            alsoKnownFor(allcast.id)
-                                        }}>
+
+                                    <div className="cast-card" onClick={() => {
+                                        actorBio(allcast.id)
+                                        alsoKnownFor(allcast.id)
+                                    }}>
+                                        <Link to="/actorProfile" key={crypto.randomUUID()}>
                                             <div className="cast-photo">{!allcast.profile_path ? <b>{`${allcast.name} "didn't Upload Image"`}</b> : <img src={`https://image.tmdb.org/t/p/w500${allcast.profile_path}`} className="actor" alt={allcast.name} />}</div>
                                             <div className="cast-info">
                                                 <h4>{allcast.name}</h4>
@@ -202,8 +203,9 @@ export function PlayTrailer({ alsoKnownFor, movieKeys, overviews, actorBio, acto
                                                 <p><b>{allcast.character}</b></p>
 
                                             </div>
-                                        </div>
-                                    </Link>
+                                        </Link>
+                                    </div>
+
                                 )
                             })}
 

@@ -5,35 +5,34 @@ import { HashLoader, ScaleLoader } from "react-spinners";
 export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, setOverviews }) {
     const [movieSearch, setMovieSearch] = useState("");
     const [searchedMovie, setSearchedMovie] = useState([])
-    const [searchLoder, setSearchLoder] = useState(null)
+    const [searchLoder, setSearchLoder] = useState(true)
     const [doting, setDoting] = useState("");
     const [handleGrid, setHandlGrid] = useState(false);
     const [profilePath, setProfilePath] = useState("moviePic");
     const [tv, setTv] = useState([]);
-
     const handleSearch = () => {
         searchButton(movieSearch).then(data => setSearchedMovie(data.results));
         tvshowsSearch(movieSearch).then((data) => {
             setTv(data.results);
-            console.log("tvshows", data);
         })
+
+
     }
 
     useEffect(() => {
+
         if (searchedMovie.length <= 0) {
             setSearchLoder(true)
         } else if (searchedMovie.length >= 1) {
             setSearchLoder(false)
         }
-    }, [searchedMovie])
 
+    }, [searchedMovie])
 
     useEffect(() => {
 
         const time = setInterval(() => {
             setDoting((prev) => (prev.length >= 4 ? "" : prev + "."));
-
-
         }, 1000)
 
         return () => clearInterval(time);
@@ -68,47 +67,61 @@ export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, se
                     </div>
                 </Link>
             </header>
-            {!movieSearch ? <h1>SEARCH MOVIES ON SEARCH BAR</h1> : <>
-                {searchedMovie && <>
-                    {movieSearch && <div className="resultsPosition"><div className="resultbar"><div className="exitIcon">
-                    </div> <h2 className=" forResult">Result For {movieSearch}</h2> </div></div>}
-                    <div className="movie-grid whileResult">
-                        {searchLoder ? <div className="overLay forSearch"><ScaleLoader size={100} color="white" /><p className="load">Fetching Moives{doting}</p></div> :
-                            <>
-                                {
-                                    searchedMovie.map((movie) => {
-                                        return (
-                                            <div className="movie-cardGrid" key={movie.id} onClick={() => {
-                                                tryVids(movie.id);
-                                                setOverviews(movie);
-                                                casting(movie.id);
-                                                gener(movie.id);
-                                            }}>
-                                                <>
-                                                    <Link to="/player">
-                                                        <div className="movie-posterGrid" ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="grid-Pic " /></div>
-                                                        <div className="movie-info">
-                                                            <h3 className="movie-titleGrid">{movie.title}</h3>
-                                                            <span className="movie-year">{movie.release_date || movie.first_air_date}</span>
-                                                            {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
-                                                        </div>
-                                                    </Link>
-                                                </>
-                                            </div>
-                                        )
+            {movieSearch ? "" : < h1 > SEARCH MOVIES ON SEARCH BAR</h1>}
+            {
+                !searchLoder ? <div className="resultsPosition">
 
-                                    })
-                                }
+                    <h2 className=" forResult">Result For {movieSearch}</h2>
 
-                            </>
-                        }
-                    </div> </>}</>}
-
-            {movieSearch && <div className="resultsPosition"><div className="resultbar"><div className="exitIcon">
-            </div> <h2 className=" forResult">Tv Shows Result For {movieSearch}</h2> </div></div>}
-
+                    <div className="resultbar">
+                    </div>
+                </div> : ""
+            }
             <div className="movie-grid whileResult">
 
+                {
+                    searchedMovie.map((movie) => {
+                        return (
+                            <div className="movie-cardGrid" key={movie.id} onClick={() => {
+                                tryVids(movie.id);
+                                setOverviews(movie);
+                                casting(movie.id);
+                                gener(movie.id);
+                            }}>
+                                <>
+                                    <Link to="/player">
+                                        <div className="movie-posterGrid" ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="grid-Pic " /></div>
+                                        <div className="movie-info">
+                                            <h3 className="movie-titleGrid">{movie.title}</h3>
+                                            <span className="movie-year">{movie.release_date || movie.first_air_date}</span>
+                                            {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
+                                        </div>
+                                    </Link>
+                                </>
+                            </div>
+                        )
+
+                    })
+                }
+                {/* Loading Section */}
+                {/* <div className="overLay forSearch">
+                    <ScaleLoader size={100} color="white" />
+                    <p className="load">
+                        Fetching Moives{doting}
+                    </p>
+                </div> */}
+
+            </div>
+
+
+
+
+            <br />
+            <br />
+
+            {!searchLoder ? <div className="resultsPosition"><div className="resultbar">
+            </div> <h2 className=" forResult tvS">Tv Shows Result For {movieSearch}</h2> </div> : " "}
+            <div className="movie-grid whileResult">
                 {tv.map((movie) => {
                     return (
                         <div className="movie-cardGrid" key={movie.id} onClick={() => {
@@ -132,7 +145,7 @@ export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, se
                 }
             </div>
 
-        </div>
+        </div >
     )
 }
 

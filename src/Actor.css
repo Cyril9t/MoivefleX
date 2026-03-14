@@ -283,7 +283,7 @@ body {
 }
 
 /* ========== RESPONSIVE FIXES FOR 360px AND BELOW ========== */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .header {
         flex-direction: column;
         align-items: stretch;
@@ -305,21 +305,22 @@ body {
 
     .profiles {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         margin: -20px;
         margin-bottom: 30px;
 
     }
 
     .profiles-card {
-        max-width: 280px;
+
         margin: 0 auto;
         padding: 1.5rem 1rem;
+
     }
 
     .profiles-img {
-        width: 140px;
-        height: 140px;
+        width: 100%;
+
     }
 
     .actor-name {
@@ -350,6 +351,7 @@ body {
     .infoss-grid {
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
+
     }
 
     .infoss-item {
@@ -370,7 +372,9 @@ body {
 
     .moviess-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 1.3rem;
+        /* padding: -30px; */
+        margin: -18px;
     }
 
     .moviess-card {
@@ -382,7 +386,7 @@ body {
     }
 }
 
-/* Extra small devices (360px and down) */
+/* Extra small devices (360px and down) 
 @media (max-width: 360px) {
     .header {
         padding: 0.6rem;
@@ -392,14 +396,6 @@ body {
         font-size: 1.6rem;
     }
 
-    .profiles-card {
-        max-width: 240px;
-    }
-
-    .profiles-img {
-        width: 120px;
-        height: 120px;
-    }
 
     .actor-name {
         font-size: 1.6rem;
@@ -429,7 +425,7 @@ body {
 
     .infoss-grid {
         grid-template-columns: 1fr;
-        /* stack all infoss items vertically */
+        /* stack all infoss items vertically 
         gap: 0.8rem;
     }
 
@@ -470,4 +466,4 @@ body {
     .moviess-year {
         font-size: 0.75rem;
     }
-}
+} */

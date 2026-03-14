@@ -175,6 +175,10 @@ th {
     font-weight: 100;
 }
 
+.tvS {
+    font-size: 35px;
+}
+
 .search-bar::placeholder {
     color: #bfb6b6;
     font-family: monospace;

@@ -52,8 +52,6 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
         setMovieTitle(tilte);
     }
 
-
-
     useEffect(() => {
 
         const time = setInterval(() => {
