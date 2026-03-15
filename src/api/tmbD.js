@@ -101,5 +101,16 @@ export const tvshowsPlayer = async (showId) => {
     return resp.json();
 }
 
+export const consistNollyHood = async () => {
+    const resp = await fetch(`${baseUrl}/discover/movie?api_key=${apiKey}&with_origin_country=NG&sort_by=release_date.desc`);
+
+    return resp.json();
+}
+export const searchNollyHood = async (searchNolly) => {
+    const resp = await fetch(`${baseUrl}/search/movie?api_key=${apiKey}&query=${searchNolly}&region=NG`);
+
+    return resp.json();
+}
+
 
 

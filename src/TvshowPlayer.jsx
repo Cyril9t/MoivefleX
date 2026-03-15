@@ -199,7 +199,6 @@ export function TvshowsPlayer({ tvTrailer, seasons, eachtvID }) {
                         </div>
                     </div>
 
-
                     <div className="cast-section">
                         <h2 className="section-title">Top Cast</h2>
                         <div className="cast-grid">

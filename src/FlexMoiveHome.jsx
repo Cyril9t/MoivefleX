@@ -1,5 +1,5 @@
 import "./App.css";
-import { populer, searchButton, topRated, trendings, upComings, embededVideos, tvshows } from "../src/api/tmbD.js";
+import { populer, searchButton, topRated, trendings, upComings, embededVideos, tvshows, consistNollyHood } from "../src/api/tmbD.js";
 import { useState, useEffect } from "react";
 import { HashLoader, ClipLoader } from "react-spinners";
 import { data, Link } from "react-router-dom";
@@ -17,7 +17,7 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
     const [doting, setDoting] = useState("")
     const [profilePath, setProfilePath] = useState("moviePic");
     const [tvshow, setTvshow] = useState([]);
-
+    const [nollywood, setNollywood] = useState([]);
 
     useEffect(() => {
         trendings().then(data => setweeklyTrends(data.results));
@@ -25,6 +25,7 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
         topRated().then(data => setRatedMovie(data.results));
         upComings().then(data => setUpComingMovies(data.results));
         tvshows().then(data => setTvshow(data.results));
+        consistNollyHood().then(data => setNollywood(data.results))
 
     }, [])
 
@@ -134,6 +135,39 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                     {!loading ?
                         <div className={populerG}>
                             {populerMovie.map((movie) => {
+                                return (
+                                    <div className={cards} key={movie.id} onClick={() => {
+                                        tryVids(movie.id);
+                                        setOverviews(movie);
+                                        casting(movie.id);
+                                        gener(movie.id);
+                                    }}>
+
+                                        <Link to="player">
+                                            <div className={infos} ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className={profilePath} /></div>
+                                            <div className="movie-info">
+                                                <h3 className={movieTitle}>{movie.title}</h3>
+                                                <span className="movie-year">{movie.release_date}</span>
+                                                {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
+                                            </div>
+                                        </Link>
+                                    </div>
+                                )
+                            })}
+                        </div> : <div className="overLay"><  HashLoader size={50} color="white" /><p className="load">Loading{doting}</p></div>}
+
+                    <div className="seeAll">
+                        <h1 className="category">🎥NollyWood</h1>
+                        <h3 className="seeButton"
+                            onClick={() => {
+                                showGrid();
+                                setGridHandle((prev) => !prev)
+                            }}
+                        >See All</h3>
+                    </div>
+                    {!loading ?
+                        <div className={populerG}>
+                            {nollywood.map((movie) => {
                                 return (
                                     <div className={cards} key={movie.id} onClick={() => {
                                         tryVids(movie.id);

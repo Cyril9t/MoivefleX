@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { CircleLoader } from "react-spinners"
+
 import "./Actor.css"
 
 
-export function ActorBio({ actorProfile, actorMovies }) {
+export function ActorBio({ gener, casting, setOverviews, tryVids, actorProfile, actorMovies }) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -15,7 +16,7 @@ export function ActorBio({ actorProfile, actorMovies }) {
         } else if (actorMovies.length >= 1) {
             setLoading(false)
         }
-        console.log(actorMovies)
+        // console.log(actorMovies)
 
     }, [actorMovies])
 
@@ -100,13 +101,24 @@ export function ActorBio({ actorProfile, actorMovies }) {
                         <h2>Known For</h2>
                         <div className="moviess-grid">
                             {actorMovies.map((moviess) => {
+
                                 return (
-                                    <div className="moviess-card" key={moviess?.id}>
-                                        <div className="moviess-poster" >
-                                            <img src={`https://image.tmdb.org/t/p/w500${moviess?.poster_path}`} className="actor known" alt={moviess?.title} />
-                                        </div>
-                                        <p className="moviess-title">{moviess?.title}</p>
-                                        <p className="moviess-year">{moviess?.release_date}</p>
+
+                                    <div className="moviess-card" key={moviess?.id}
+                                        onClick={() => {
+                                            tryVids(moviess.id);
+                                            setOverviews(moviess);
+                                            gener(moviess.id);
+                                            casting(moviess.id)
+                                        }}
+                                    >
+                                        <Link to="/player">
+                                            <div className="moviess-poster" >
+                                                <img src={`https://image.tmdb.org/t/p/w500${moviess?.poster_path}`} className="actor known" alt={moviess?.title} />
+                                            </div>
+                                            <p className="moviess-title">{moviess?.title}</p>
+                                            <p className="moviess-year">{moviess?.release_date}</p>
+                                        </Link>
                                     </div>
                                 )
                             })}

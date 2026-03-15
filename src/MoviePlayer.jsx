@@ -76,7 +76,7 @@ export function PlayTrailer({ alsoKnownFor, movieKeys, overviews, actorBio, acto
                 <main className="movie-detail">
                     <div className="video-section">
                         <div className="video-container">
-                            <iframe src={`https://www.youtube.com/embed/${movieKeys}?autoplay=1&rel=0`}
+                            <iframe src={`https://www.youtube.com/embed/${movieKeys.key}?autoplay=1&rel=0`}
                                 width="100%"
                                 height="550"
                                 title="Movies Trailler"
@@ -191,7 +191,7 @@ export function PlayTrailer({ alsoKnownFor, movieKeys, overviews, actorBio, acto
                             {casts.map((allcast) => {
                                 return (
 
-                                    <div className="cast-card" onClick={() => {
+                                    <div className="cast-card" key={crypto.randomUUID()} onClick={() => {
                                         actorBio(allcast.id)
                                         alsoKnownFor(allcast.id)
                                     }}>

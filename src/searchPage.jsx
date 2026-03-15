@@ -1,6 +1,6 @@
 import { data, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { searchButton, tvshowsSearch } from "./api/tmbD";
+import { searchButton, tvshowsSearch, searchNollyHood } from "./api/tmbD";
 import { HashLoader, ScaleLoader } from "react-spinners";
 export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, setOverviews }) {
     const [movieSearch, setMovieSearch] = useState("");
@@ -10,12 +10,18 @@ export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, se
     const [handleGrid, setHandlGrid] = useState(false);
     const [profilePath, setProfilePath] = useState("moviePic");
     const [tv, setTv] = useState([]);
+    const [nolly, setNolly] = useState([]);
+
     const handleSearch = () => {
         searchButton(movieSearch).then(data => setSearchedMovie(data.results));
         tvshowsSearch(movieSearch).then((data) => {
             setTv(data.results);
-        })
+        });
 
+        searchNollyHood(movieSearch).then((data) => {
+            console.log("nolly", data)
+            setNolly(data.results)
+        })
 
     }
 
@@ -80,7 +86,7 @@ export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, se
             <div className="movie-grid whileResult">
 
                 {
-                    searchedMovie.map((movie) => {
+                    searchedMovie.map((movie, index) => {
                         return (
                             <div className="movie-cardGrid" key={movie.id} onClick={() => {
                                 tryVids(movie.id);
@@ -112,7 +118,35 @@ export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, se
                 </div> */}
 
             </div>
+            <div className="movie-grid whileResult">
 
+                {
+                    nolly.map((movie, index) => {
+                        return (
+                            <div className="movie-cardGrid" key={movie.id} onClick={() => {
+                                tryVids(movie.id);
+                                setOverviews(movie);
+                                casting(movie.id);
+                                gener(movie.id);
+                            }}>
+                                <>
+                                    <Link to="/player">
+                                        <div className="movie-posterGrid" ><img src={!movie.poster_path ? "/gallery-svgrepo-com.svg" : `https://image.tmdb.org/t/p/w300${movie.poster_path}`} alt={movie.title} className="grid-Pic " /></div>
+                                        <div className="movie-info">
+                                            <h3 className="movie-titleGrid">{movie.title}</h3>
+                                            <span className="movie-year">{movie.release_date || movie.first_air_date}</span>
+                                            {/* <button className="favorite-btn"><i className="far fa-heart"></i></button> */}
+                                        </div>
+                                    </Link>
+                                </>
+                            </div>
+                        )
+
+                    })
+                }
+
+
+            </div>
 
 
 

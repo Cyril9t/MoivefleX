@@ -22,9 +22,9 @@ function App() {
 
   const tryVids = (movieId) => {
     embededVideos(movieId).then(data => {
-      const trailers = data.results.find((vid) => (vid.type === "Trailer" && vid.site === "YouTube" && vid.name.toLowerCase().includes("official")) || vid.type === "Teaser")
+      const trailers = data.results.find((vid) => (vid.type === "Trailer" && vid.site === "YouTube" && vid.name.toLowerCase().includes("official")) || vid.type === "Teaser" || vid.type === "Featurette")
       if (trailers) {
-        setMovieKeys(trailers.key);
+        setMovieKeys(trailers);
       }
     })
   }
@@ -55,15 +55,10 @@ function App() {
     actorOtherMovies(id).then(data => setActorMovies(data.cast));
   }
 
-
   const tvSeasons = (tvId) => {
-
     tvshowsSeasons(tvId).then((data) => {
       setSeasons(data);
-
-      console.log(data);
     })
-
   }
 
   const playtvShows = (showid) => {
@@ -73,12 +68,9 @@ function App() {
       if (trailers) {
         setTvTrailer(trailers.key);
       }
-
-
     })
 
   }
-
 
 
   return (
@@ -99,7 +91,7 @@ function App() {
 
       <Route
         path="actorProfile"
-        element={<ActorBio actorMovies={actorMovies} actorProfile={actorProfile} />}
+        element={<ActorBio gener={gener} casting={casting} setOverviews={setOverviews} tryVids={tryVids} actorMovies={actorMovies} actorProfile={actorProfile} />}
       />
       <Route
         path="tvshowsPlayer"
