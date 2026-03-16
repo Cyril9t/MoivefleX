@@ -9,7 +9,7 @@ import { TvshowsPlayer } from "./TvshowPlayer";
 import { SearchPage } from "./searchPage";
 function App() {
   const [overviews, setOverviews] = useState("")
-  const [movieKeys, setMovieKeys] = useState([])
+  const [movieKeys, setMovieKeys] = useState("")
   const [casts, setCasts] = useState([])
   const [crew, setCrew] = useState([])
   const [directors, setDirectors] = useState([]);
@@ -19,15 +19,37 @@ function App() {
   const [genres, setGenres] = useState([]);
   const [eachtvID, setEachtvID] = useState("");
   const [tvTrailer, setTvTrailer] = useState([]);
+  const [bts, setBts] = useState("");
+  const [bothKeys, setBothKeys] = useState();
+  const [condi, setCondi] = useState(true)
 
   const tryVids = (movieId) => {
     embededVideos(movieId).then(data => {
-      const trailers = data.results.find((vid) => (vid.type === "Trailer" && vid.site === "YouTube" && vid.name.toLowerCase().includes("official")) || vid.type === "Teaser" || vid.type === "Featurette")
+
+      const behindS = data.results.find((vid) => (vid.type === "Behind the Scenes" || vid.type === "Featurette" && vid.site === "YouTube"))
+      const trailers = data.results.find((vid) => (vid.type === "Trailer" && vid.site === "YouTube" && vid.name.toLowerCase().includes("official")) || vid.type === "Teaser")
+
       if (trailers) {
-        setMovieKeys(trailers);
+        setMovieKeys(trailers.key)
       }
+
+      if (behindS) {
+        setBts(behindS.key)
+      }
+      setBothKeys(trailers.key);
+
     })
+
   }
+
+  const keysFunctino = () => {
+    const allKeys = condi ? movieKeys : bts;
+    setBothKeys(allKeys);
+    console.log("fromAllkeys", allKeys);
+
+  }
+
+
 
   const casting = (idforCast) => {
     moviCast(idforCast).then(data => {
@@ -81,7 +103,7 @@ function App() {
       />
       <Route
         path="player"
-        element={<PlayTrailer alsoKnownFor={alsoKnownFor} actorBio={actorBio} actorProfile={actorProfile} genres={genres} directors={directors} movieKeys={movieKeys} overviews={overviews} casts={casts} crew={crew} />}
+        element={<PlayTrailer keysFunctino={keysFunctino} setCondi={setCondi} alsoKnownFor={alsoKnownFor} actorBio={actorBio} actorProfile={actorProfile} genres={genres} directors={directors} movieKeys={bothKeys} overviews={overviews} casts={casts} crew={crew} />}
       />
 
       <Route

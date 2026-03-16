@@ -86,7 +86,7 @@ export function SearchPage({ playtvShows, tvSeasons, gener, casting, tryVids, se
             <div className="movie-grid whileResult">
 
                 {
-                    searchedMovie.map((movie, index) => {
+                    searchedMovie.map((movie) => {
                         return (
                             <div className="movie-cardGrid" key={movie.id} onClick={() => {
                                 tryVids(movie.id);

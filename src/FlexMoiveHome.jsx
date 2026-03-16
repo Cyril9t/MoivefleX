@@ -3,7 +3,7 @@ import { populer, searchButton, topRated, trendings, upComings, embededVideos, t
 import { useState, useEffect } from "react";
 import { HashLoader, ClipLoader } from "react-spinners";
 import { data, Link } from "react-router-dom";
-export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, gener, tvSeasons, setEachtvID }) {
+export function Homepage({ keysFunctino, playtvShows, genres, tryVids, setOverviews, casting, gener, tvSeasons, setEachtvID }) {
     const [weeklyTrends, setweeklyTrends] = useState([]);
     const [populerMovie, setPopulerMovie] = useState([]);
     const [ratedMovie, setRatedMovie] = useState([]);
@@ -88,12 +88,12 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                     <h2 className="section-title">Recommended</h2>
                     <div className="seeAll">
                         <h1 className="category">🔥Weekly Trends</h1>
-                        <h3 className="seeButton"
+                        <button className="seeButton"
                             onClick={() => {
                                 showGrid();
                                 setGridHandle((prev) => !prev)
                             }}
-                        >See All</h3>
+                        >See All</button>
                     </div>
                     {loading ? <div className="overLay"><  HashLoader size={50} color="white" /><p className="load">Loading{doting}</p></div>
                         :
@@ -103,6 +103,7 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                                     return (
                                         <div className={cards} key={movie.id} onClick={() => {
                                             tryVids(movie.id);
+                                            keysFunctino();
                                             setOverviews(movie);
                                             casting(movie.id);
                                             gener(movie.id);
@@ -121,16 +122,14 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                                 })
                             }
                         </div>}
-
-
                     <div className="seeAll">
                         <h1 className="category">🚀Populer</h1>
-                        <h3 className="seeButton"
+                        <button className="seeButton"
                             onClick={() => {
                                 showGrid();
                                 setGridHandle((prev) => !prev)
                             }}
-                        >See All</h3>
+                        >See All</button>
                     </div>
                     {!loading ?
                         <div className={populerG}>
@@ -158,12 +157,12 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
 
                     <div className="seeAll">
                         <h1 className="category">🎥NollyWood</h1>
-                        <h3 className="seeButton"
+                        <button className="seeButton"
                             onClick={() => {
                                 showGrid();
                                 setGridHandle((prev) => !prev)
                             }}
-                        >See All</h3>
+                        >See All</button>
                     </div>
                     {!loading ?
                         <div className={populerG}>
@@ -191,12 +190,12 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
 
                     <div className="seeAll">
                         <h1 className="category">📺Tv Shows</h1>
-                        <h3 className="seeButton"
+                        <button className="seeButton"
                             onClick={() => {
                                 showGrid();
                                 setGridHandle((prev) => !prev)
                             }}
-                        >See All</h3>
+                        >See All</button>
                     </div>
                     {!loading ?
                         <div className={populerG}>
@@ -227,10 +226,10 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
 
                     <div className="seeAll">
                         <h1 className="category">⭐Top Rated</h1>
-                        <h3 className="seeButton" onClick={() => {
+                        <button className="seeButton" onClick={() => {
                             showGrid();
                             setGridHandle((prev) => !prev)
-                        }}>See All</h3>
+                        }}>See All</button>
                     </div>
                     {!loading ?
                         <div className={populerG}>
@@ -258,11 +257,11 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                         </div> : <div className="overLay"><  HashLoader size={50} color="white" /><p className="load">Loading{doting}</p></div>}
 
                     <div className="seeAll">
-                        <h1 className="category">⬆️ Up Next</h1>
-                        <h3 className="seeButton" onClick={() => {
+                        <h1 className="category">🎬 Recents</h1>
+                        <button className="seeButton" onClick={() => {
                             showGrid();
                             setGridHandle((prev) => !prev)
-                        }}>See All</h3>
+                        }}>See All</button>
                     </div>
 
                     {loading ? <div className="overLay"><  HashLoader size={30} color="white" /><p className="load">Loading{doting}</p></div> : <div className={populerG}>
@@ -289,7 +288,7 @@ export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, 
                 </main>
             </div >
             <footer className="footer">
-                <p>© 2025 MOVIEFLEX</p>
+                <p>© 2025 MOVIEFLEX · <small>CodewithcY</small></p>
             </footer>
         </>
     )

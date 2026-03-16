@@ -2,7 +2,7 @@ import "./index.css"
 import { useState, useEffect } from "react";
 import { data, Link } from "react-router-dom"
 import { HashLoader } from "react-spinners";
-export function PlayTrailer({ alsoKnownFor, movieKeys, overviews, actorBio, actorProfile, casts, crew, directors, genres }) {
+export function PlayTrailer({ keysFunctino, setCondi, alsoKnownFor, movieKeys, overviews, actorBio, actorProfile, casts, crew, directors, genres }) {
     const [flagsConut, setFlagsConut] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -13,7 +13,6 @@ export function PlayTrailer({ alsoKnownFor, movieKeys, overviews, actorBio, acto
             const country = await resp.json();
             setFlagsConut(country[0].flags.png);
         });
-
 
     }, [])
 
@@ -76,12 +75,19 @@ export function PlayTrailer({ alsoKnownFor, movieKeys, overviews, actorBio, acto
                 <main className="movie-detail">
                     <div className="video-section">
                         <div className="video-container">
-                            <iframe src={`https://www.youtube.com/embed/${movieKeys.key}?autoplay=1&rel=0`}
+                            <iframe src={`https://www.youtube.com/embed/${movieKeys}?autoplay=1&rel=0`}
                                 width="100%"
                                 height="550"
                                 title="Movies Trailler"
                                 allow="autoplay; gyroscope; encrypted-media" allowFullScreen ></iframe>
                         </div>
+                        <button className="Bts" onClick={() => {
+                            setCondi((prev) => !prev);
+                            keysFunctino();
+
+                        }}>
+                            Watch BTS
+                        </button>
                     </div>
                     <div className="movie-header">
                         <h1 className="movie-main-title">{overviews.title}</h1>

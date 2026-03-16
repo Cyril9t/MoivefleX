@@ -298,35 +298,13 @@ export function TvshowsPlayer({ tvTrailer, seasons, eachtvID }) {
                     </div>
 
 
-                    <div className="recommendations">
-                        <h2 className="section-title">You May Also Like</h2>
-                        <div className="movie-grid">
 
-                            <div className="movie-card">
-                                <div className="movie-poster" >                            <h3 className="movie-title">The Walking Dead</h3>
-                                    <span className="movie-year">2010</span>
-                                </div>
-                            </div>
-                            <div className="movie-card">
-                                <div className="movie-poster"  >                           <h3 className="movie-title">Chernobyl</h3>
-                                    <span className="movie-year">2019</span>
-                                </div>
-                            </div>
-                            <div className="movie-card">
-                                <div className="movie-poster"   >                          <h3 className="movie-title">The Mandalorian</h3>
-                                    <span className="movie-year">2019</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </main>
             </div>
 
             <footer className="footer">
-                <p>© 2025 MOVIEFLEX · just UI</p>
+                <p>© 2025 MOVIEFLEX · <small>CodewithcY</small></p>
             </footer>
-
-
 
 
         </>
