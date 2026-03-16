@@ -3,7 +3,7 @@ import { populer, searchButton, topRated, trendings, upComings, embededVideos, t
 import { useState, useEffect } from "react";
 import { HashLoader, ClipLoader } from "react-spinners";
 import { data, Link } from "react-router-dom";
-export function Homepage({ keysFunctino, playtvShows, genres, tryVids, setOverviews, casting, gener, tvSeasons, setEachtvID }) {
+export function Homepage({ playtvShows, genres, tryVids, setOverviews, casting, gener, tvSeasons, setEachtvID }) {
     const [weeklyTrends, setweeklyTrends] = useState([]);
     const [populerMovie, setPopulerMovie] = useState([]);
     const [ratedMovie, setRatedMovie] = useState([]);
@@ -103,7 +103,7 @@ export function Homepage({ keysFunctino, playtvShows, genres, tryVids, setOvervi
                                     return (
                                         <div className={cards} key={movie.id} onClick={() => {
                                             tryVids(movie.id);
-                                            keysFunctino();
+
                                             setOverviews(movie);
                                             casting(movie.id);
                                             gener(movie.id);
