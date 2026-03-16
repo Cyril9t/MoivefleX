@@ -113,4 +113,9 @@ export const searchNollyHood = async (searchNolly) => {
 }
 
 
+export const tvShowmoviCast = async (tvshowidforCast) => {
+    const resp = await fetch(`${baseUrl}/tv/${tvshowidforCast}/credits?api_key=${apiKey}`);
 
+    return resp.json();
+
+}

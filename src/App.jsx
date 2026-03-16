@@ -4,7 +4,7 @@ import { PlayTrailer } from "./MoviePlayer";
 import { useEffect, useState } from "react";
 import { Routes, Route, data } from "react-router-dom";
 import { ActorBio } from "./ActorProfile"
-import { moviCast, genreAndruntime, castProfiles, actorOtherMovies, contryFlags, tvshowsSeasons, tvshowsPlayer } from "./api/tmbD";
+import { tvShowmoviCast, moviCast, genreAndruntime, castProfiles, actorOtherMovies, contryFlags, tvshowsSeasons, tvshowsPlayer } from "./api/tmbD";
 import { TvshowsPlayer } from "./TvshowPlayer";
 import { SearchPage } from "./searchPage";
 function App() {
@@ -21,7 +21,9 @@ function App() {
   const [tvTrailer, setTvTrailer] = useState([]);
   const [bts, setBts] = useState("");
   const [bothKeys, setBothKeys] = useState();
-  const [condi, setCondi] = useState(true)
+  const [condi, setCondi] = useState(true);
+  const [tvActors, setTvActors] = useState([]);
+  const [tvcrew, setTvcrew] = useState([]);
 
   const tryVids = (movieId) => {
     embededVideos(movieId).then(data => {
@@ -48,7 +50,6 @@ function App() {
     console.log("fromAllkeys", allKeys);
 
   }
-
 
 
   const casting = (idforCast) => {
@@ -80,6 +81,12 @@ function App() {
   const tvSeasons = (tvId) => {
     tvshowsSeasons(tvId).then((data) => {
       setSeasons(data);
+    })
+
+    tvShowmoviCast(tvId).then((data) => {
+      setTvActors(data.cast);
+      setTvcrew(data.cast);
+
     })
   }
 
@@ -117,7 +124,7 @@ function App() {
       />
       <Route
         path="tvshowsPlayer"
-        element={<TvshowsPlayer tvTrailer={tvTrailer} eachtvID={eachtvID} seasons={seasons} />}
+        element={<TvshowsPlayer actorBio={actorBio} alsoKnownFor={alsoKnownFor} tvActors={tvActors} tvcrew={tvcrew} tvTrailer={tvTrailer} eachtvID={eachtvID} seasons={seasons} />}
       />
 
     </Routes>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { tvshowsEpisodes, tvshowsEpisodesPlays } from "./api/tmbD";
 import { useState, useEffect } from "react";
 
-export function TvshowsPlayer({ tvTrailer, seasons, eachtvID }) {
+export function TvshowsPlayer({ actorBio, alsoKnownFor, tvcrew, tvActors, tvTrailer, seasons, eachtvID }) {
     const [forEpisodes, setForEpisodes] = useState([]);
     const [appenButton, setAppenButton] = useState(false);
     const [hideButton, setHideButton] = useState("hide");
@@ -200,36 +200,48 @@ export function TvshowsPlayer({ tvTrailer, seasons, eachtvID }) {
                     </div>
 
                     <div className="cast-section">
-                        <h2 className="section-title">Top Cast</h2>
+                        <h2>Top Cast</h2>
                         <div className="cast-grid">
-                            <div className="cast-card">
-                                <div className="cast-photo" ></div>
-                                <div className="cast-info">
-                                    <h4>Pedro Pascal</h4>
-                                    <p>Joel Miller</p>
-                                </div>
-                            </div>
-                            <div className="cast-card">
-                                <div className="cast-photo" ></div>
-                                <div className="cast-info">
-                                    <h4>Bella Ramsey</h4>
-                                    <p>Ellie</p>
-                                </div>
-                            </div>
-                            <div className="cast-card">
-                                <div className="cast-photo" ></div>
-                                <div className="cast-info">
-                                    <h4>Anna Torv</h4>
-                                    <p>Tess</p>
-                                </div>
-                            </div>
-                            <div className="cast-card">
-                                <div className="cast-photo" ></div>
-                                <div className="cast-info">
-                                    <h4>Lamar Johnson</h4>
-                                    <p>Henry Burrell</p>
-                                </div>
-                            </div>
+
+                            {tvActors.map((allcast) => {
+                                return (
+
+                                    <div className="cast-card" key={crypto.randomUUID()} onClick={() => {
+                                        actorBio(allcast.id)
+                                        alsoKnownFor(allcast.id)
+                                    }}>
+                                        <Link to="/actorProfile" key={crypto.randomUUID()}>
+                                            <div className="cast-photo">{!allcast.profile_path ? <b>{`${allcast.name} "didn't Upload Image"`}</b> : <img src={`https://image.tmdb.org/t/p/w500${allcast.profile_path}`} className="actor" alt={allcast.name} />}</div>
+                                            <div className="cast-info">
+                                                <h4>{allcast.name}</h4>
+                                                <p>Cast as 👇</p>
+                                                <p><b>{allcast.character}</b></p>
+
+                                            </div>
+                                        </Link>
+                                    </div>
+
+                                )
+                            })}
+
+                        </div><br />
+                        <br />
+                        <h2>Crew</h2>
+
+
+                        <div className="cast-grid">
+                            {tvcrew.map((allCrew) => {
+                                return (
+                                    <div className="cast-card" key={crypto.randomUUID()} >
+                                        <div className="cast-photo" >{!allCrew.profile_path ? <b>{`${allCrew.name} "didn't Upload Image"`}</b> : <img src={`https://image.tmdb.org/t/p/w500${allCrew.profile_path}`} className="actor" alt={allCrew.name} />}</div>
+                                        <div className="cast-info">
+                                            <h4>{allCrew.name}</h4>
+                                            <p>{allCrew.job}</p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+
                         </div>
                     </div>
 
